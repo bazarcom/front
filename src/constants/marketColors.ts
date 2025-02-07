@@ -1,0 +1,10 @@
+export enum MarketColor {
+  WOLT_MARKET = '#00C1E8',
+  BAZARSTORE = '#4CAF50', // Example green color
+  BRAVO_MARKET = '#77BA1C',
+  NEPTUN_MARKET = '#FF7101',
+  BOLMART_MARKET = '#F3F3F3',
+  ARAZ_MARKET = '#FFFFFF',
+  INDI_MARKET = '#8462F5',
+  RAHAT_MARKET = '#000000',
+}
