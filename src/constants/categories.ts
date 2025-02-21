@@ -181,14 +181,29 @@ export const categories = [
     icon: '/icons/sugar.svg',
     subMenu: [
       {
-        title: 'Enerji içkiləri',
+        title: 'Qazlı şirin içkilər',
         id: 23,
+        urlKey: 'carbonated_sweet_drinks',
+      },
+      {
+        title: 'Soyuq çaylar',
+        id: 24,
+        urlKey: 'iced_teas',
+      },
+      {
+        title: 'Meyvə şirələri',
+        id: 25,
+        urlKey: 'juices_and_nectars',
+      },
+      {
+        title: 'Enerji içkilər',
+        id: 26,
         urlKey: 'energy_drinks',
       },
       {
-        title: 'Bütün içkilər',
-        id: 24,
-        urlKey: 'drinks',
+        title: 'Digər içkilər',
+        id: 27,
+        urlKey: 'other_non_alcoholic',
       },
     ],
   },
