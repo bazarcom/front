@@ -36,8 +36,8 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
   useEffect(() => {
     (async () => {
       try {
-          setProducts(() => []);
-          setTotalPages(() => 0);
+        setProducts(() => []);
+        setTotalPages(() => 0);
         setLoading(() => true);
         const res = await fetch(`https://bazarcom-backend-api.onrender.com/api/v1/products?page=${page}${category ? `&category=${category}` : ''}`)
           .then((res) => res.json());
