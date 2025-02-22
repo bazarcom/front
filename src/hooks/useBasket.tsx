@@ -32,6 +32,8 @@ const useBasket = (): UseBasket => {
     });
 
     syncStateAndLocalStorage(updatedProducts);
+
+    toast.success('Artdı.');
   };
 
   const handleAddProduct = (newProduct: Basket) => {

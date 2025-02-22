@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <Link
       href="/"
-      className="relative h-[60px] w-[177.8px] text-2xl font-normal text-black md:text-4xl md:font-medium">
+      className="relative h-[60px] w-[200px] text-2xl font-normal text-black md:text-4xl md:font-medium">
       <Image
         src="/logos/logo.svg"
         alt="Logo"

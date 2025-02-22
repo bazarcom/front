@@ -1,3 +1,4 @@
+import { markets } from "@constants/markets";
 import type { FC } from 'react';
 import { Button } from 'react-aria-components';
 
@@ -26,6 +27,7 @@ export type MiniPCardProps = {
 };
 
 const MiniPCard: FC<MiniPCardProps> = ({ badge, marketLabel, product, offerId, quantity, marketName, handleAddProduct, marketImage, name, price, id }) => {
+
   return (
     <div
       className={cn({
@@ -49,9 +51,11 @@ const MiniPCard: FC<MiniPCardProps> = ({ badge, marketLabel, product, offerId, q
         </div>
         <div className="flex flex-col justify-between md:hidden">
           <PCardStoreBadge
-            marketLabel={marketLabel}
-            marketName={marketName}
-            marketImage={marketImage}
+            marketLabel={markets[marketLabel].label}
+            marketName={markets[marketLabel].label}
+            marketTextColor={markets[marketLabel].marketTextColor}
+            marketImage={markets[marketLabel].logo}
+            marketBgColor={markets[marketLabel].bgColor}
           />
           <div className="mb-2"></div>
           <CardTitle name={`${name} / ${marketName[0].toUpperCase()}${marketName.slice(1)}`} />
@@ -108,7 +112,6 @@ const CardPrice = ({ price }: { price: number }) => {
 };
 
 const CardBag = ({
-  id,
   offerId,
   quantity,
   marketName,
@@ -127,7 +130,7 @@ const CardBag = ({
   handleAddProduct: (product: Basket) => void;
 }) => {
   const productDto: Basket = {
-    _id: id,
+    _id: offerId,
     quantity: quantity,
     name: product.name,
     image: product.image,
@@ -140,6 +143,8 @@ const CardBag = ({
       store_name: marketName,
     },
   };
+
+  console.log(productDto);
 
   return (
     <Button

@@ -1,4 +1,4 @@
-import { WoltTag } from '@atoms/Tags/WoltTag';
+import { BasketTag } from '@atoms/Tags/BasketTag';
 import { SvgClose } from '@icons/SvgClose';
 import { BasketProductQuantityController } from '@molecules/BasketProductQuantityController';
 import type { ReactNode } from 'react';
@@ -22,10 +22,8 @@ const MOBILE_WIDTH = 768;
 
 const BasketItem = ({
   img,
-  // market,
   id,
   offerId,
-  // marketTag,
   name,
   price,
   quantity,
@@ -34,12 +32,17 @@ const BasketItem = ({
   handleDecrementProduct,
   handleRemoveProduct,
 }: BasketItemProps) => {
+  console.log("Basket Item", market);
+
   return (
     <li className="flex min-h-fit justify-between overflow-hidden rounded-lg p-5 md:border md:border-solid md:border-basket-product-border md:bg-white">
       <div className="flex w-full items-center gap-4">
         <div className="border-product-img-border relative h-[80px] w-full max-w-[80px] overflow-hidden rounded-lg border-2 border-solid md:h-[100px] md:max-w-[100px]">
           <div className="absolute left-0 right-0 top-0 block md:hidden">
-            <WoltTag marketName={`${market[0].toUpperCase()}${market.slice(1)}`} isMobile={window.innerWidth <= MOBILE_WIDTH} />
+            <BasketTag
+              marketName={market}
+              isMobile={window.innerWidth <= MOBILE_WIDTH}
+            />
           </div>
           <img
             src={img}
@@ -49,7 +52,7 @@ const BasketItem = ({
         </div>
         <div className="flex max-w-[350px] flex-col gap-1.5">
           <div className="hidden md:block">
-            <WoltTag marketName={`${market[0].toUpperCase()}${market.slice(1)}`} isMobile={false} />
+            <BasketTag marketName={`${market[0].toUpperCase()}${market.slice(1)}`} isMobile={false} />
           </div>
           <h3 className="text-sm font-semibold text-basket-product-name md:text-base">{name}</h3>
           <span className="text-product-unit text-xs md:text-base">500 qram</span>

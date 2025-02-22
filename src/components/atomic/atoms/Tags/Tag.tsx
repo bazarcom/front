@@ -1,25 +1,29 @@
 import { dmSans } from '@constants/fonts';
+import { markets } from "@constants/markets";
 import Image from 'next/image';
 
 type TagProps = {
-  img: string;
-  bgColor: string;
-  textColor?: string;
   marketName: string;
 };
 
-const Tag = ({ img, bgColor, textColor = '#FFF', marketName }: TagProps) => {
+const Tag = ({ marketName }: TagProps) => {
+  console.log('TagProps', marketName);
+  const img = markets[marketName]?.logo;
+  const bgColor = markets[marketName]?.bgColor;
+  const textColor = markets[marketName]?.marketTextColor;
+  const marketLabel = markets[marketName]?.label;
+
+
   return (
     <div
       style={{ backgroundColor: bgColor }}
-      className="flex items-center gap-1.5 overflow-hidden rounded-sm px-2 py-1">
-      {' '}
+      className="flex items-center w-fit gap-1.5 overflow-hidden rounded-sm px-2 py-1">
       {/* For now it will be div, but I think that we can make a Link component from that div(to enhance UX) */}
       <div className="rounded-sm bg-white p-0.5">
         <Image
           className="h-[11px] w-[11px] overflow-hidden rounded-full object-cover"
           src={img}
-          alt={marketName}
+          alt={marketLabel}
           width={11}
           height={11}
         />
@@ -27,7 +31,7 @@ const Tag = ({ img, bgColor, textColor = '#FFF', marketName }: TagProps) => {
       <span
         className={`text-xs ${dmSans.className}`}
         style={{ color: textColor }}>
-        {marketName}
+        {marketLabel}
       </span>
     </div>
   );

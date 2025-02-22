@@ -1,5 +1,6 @@
 'use client';
 
+import { markets } from "@constants/markets";
 import { motion } from 'framer-motion';
 import { useContext } from 'react';
 
@@ -13,14 +14,22 @@ import { PCardStores } from './PCardStores';
 const VerticalPCard = () => {
   const product = useContext(CardContext);
 
+  const paramPath = useParamPath();
+
+  const handleClick = () => {
+    paramPath({ name: 'product', key: String(product["_id"]) });
+    return;
+  };
+
   return (
     <>
       <motion.div
+        onClick={handleClick}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="overflow-hidden rounded border border-solid border-[#C3C8C9]">
+        className="overflow-hidden cursor-pointer rounded border border-solid border-[#C3C8C9]">
         <PCardImage />
         <div className="bg-white px-3 py-4">
           <PCardTitle />
@@ -45,9 +54,11 @@ const PCardImage = () => {
     <div className="relative h-[128px] bg-[#F6F6F6] md:h-[175px]">
       <div className="absolute left-3 top-3 z-20">
         <PCardStoreBadge
-          marketLabel={bestOffer.store_name}
-          marketName={bestOffer.store_name}
-          marketImage="https://placehold.jp/3d4070/ffffff/150x150.png"
+          marketLabel={markets[bestOffer.store_name].label}
+          marketName={markets[bestOffer.store_name].label}
+          marketImage={markets[bestOffer.store_name].logo}
+          marketBgColor={markets[bestOffer.store_name].bgColor}
+          marketTextColor={markets[bestOffer.store_name].marketTextColor}
         />
       </div>
       <img
@@ -62,18 +73,9 @@ const PCardImage = () => {
 const PCardTitle = () => {
   const product = useContext(CardContext);
 
-  const paramPath = useParamPath();
-
-  const handleClick = () => {
-    paramPath({ name: 'product', key: String(product["_id"]) });
-    return;
-  };
-
   return (
     <div
-      role="a"
-      onClick={handleClick}
-      className="mb-5 cursor-pointer text-sm font-semibold text-[#1E285F] hover:underline md:text-base">
+      className="mb-5 text-sm font-semibold text-[#1E285F] hover:underline md:text-base">
       {product.name} <span className="text-sm font-medium text-[#9198A2] md:text-base"> / eded</span>
     </div>
   );

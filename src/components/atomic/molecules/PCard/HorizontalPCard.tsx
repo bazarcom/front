@@ -1,5 +1,6 @@
 'use client';
 
+import { markets } from "@constants/markets";
 import { motion } from 'framer-motion';
 import { useContext } from 'react';
 
@@ -11,23 +12,32 @@ import { PCardStoreBadge } from './PCardStoreBadge';
 import { PCardStores } from './PCardStores';
 
 const HorizontalPCard = () => {
+  const paramPath = useParamPath();
   const product = useContext(CardContext);
 
   const sortedOffers = product.prices.sort((a, b) => a.price - b.price);
+
+  const handleClick = () => {
+    paramPath({ name: 'product', key: String(product["_id"]) });
+    return;
+  };
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      onClick={handleClick}
       transition={{ duration: 0.3 }}
-      className="relative grid grid-cols-[1fr_min-content] gap-6 overflow-hidden rounded bg-white py-2 ps-8 md:grid-cols-[min-content_1fr_min-content] md:py-4 md:ps-14">
+      className="relative cursor-pointer grid grid-cols-[1fr_min-content] gap-6 overflow-hidden rounded bg-white py-2 ps-8 md:grid-cols-[min-content_1fr_min-content] md:py-4 md:ps-14">
       <div className="relative hidden h-[118px] w-[148px] rounded-md bg-[#F6F6F6] p-1 md:block">
         <div className="absolute left-3 top-3 z-20">
           <PCardStoreBadge
-            marketLabel={sortedOffers[0].store_name}
-            marketName={sortedOffers[0].store_name}
-            marketImage="https://placehold.jp/3d4070/ffffff/150x150.png"
+            marketLabel={markets[sortedOffers[0].store_name].label}
+            marketName={markets[sortedOffers[0].store_name].label}
+            marketImage={markets[sortedOffers[0].store_name].logo}
+            marketBgColor={markets[sortedOffers[0].store_name].bgColor}
+            marketTextColor={markets[sortedOffers[0].store_name].marketTextColor}
           />
         </div>
         <img
@@ -40,9 +50,11 @@ const HorizontalPCard = () => {
       <div className="flex flex-col justify-between gap-2">
         <div className="block md:hidden">
           <PCardStoreBadge
-            marketLabel={sortedOffers[0].store_name}
-            marketName={sortedOffers[0].store_name}
-            marketImage="https://placehold.jp/3d4070/ffffff/150x150.png"
+            marketLabel={markets[sortedOffers[0].store_name].label}
+            marketName={markets[sortedOffers[0].store_name].label}
+            marketImage={markets[sortedOffers[0].store_name].logo}
+            marketBgColor={markets[sortedOffers[0].store_name].bgColor}
+            marketTextColor={markets[sortedOffers[0].store_name].marketTextColor}
           />
         </div>
         <PCardTitle />
@@ -57,20 +69,11 @@ const HorizontalPCard = () => {
 };
 
 const PCardTitle = () => {
-  const paramPath = useParamPath();
-
   const product = useContext(CardContext);
-
-  const handleClick = () => {
-    paramPath({ name: 'product', key: String(product["_id"]) });
-    return;
-  };
 
   return (
     <div
-      role="a"
-      onClick={handleClick}
-      className="line-clamp-1 max-w-[400px] cursor-pointer text-sm font-semibold text-[#1E285F] hover:underline md:line-clamp-3 md:text-2xl">
+      className="line-clamp-1 max-w-[400px] text-sm font-semibold text-[#1E285F] hover:underline md:line-clamp-3 md:text-2xl">
       {product.name} <span className="text-sm font-medium text-[#9198A2] md:text-2xl"> / eded</span>
     </div>
   );

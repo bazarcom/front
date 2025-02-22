@@ -1,16 +1,12 @@
-import { getColorByMarket } from '@/helper';
-
-const PCardStoreBadge = ({ marketName, marketImage, marketLabel }: { marketName: string; marketImage: string | undefined; marketLabel: string }) => {
-  const color = getColorByMarket(marketName);
-
+const PCardStoreBadge = ({ marketName, marketBgColor, marketImage, marketTextColor, marketLabel }: { marketName: string; marketTextColor: string; marketImage: string | undefined; marketBgColor: string; marketLabel: string }) => {
   return (
     <div
       style={{
-        backgroundColor: color,
+        backgroundColor: marketBgColor,
       }}
       className="flex w-fit items-center gap-1 rounded-[3px] px-2 py-1">
       <div className="grid h-4 w-4 place-items-center rounded-sm bg-white">
-        <div className="relative h-3 w-3 overflow-hidden rounded-full">
+        <div className="relative h-[14px] w-[14px] overflow-hidden rounded-full">
           <img
             src={marketImage}
             className="h-full w-full object-cover object-center"
@@ -18,7 +14,9 @@ const PCardStoreBadge = ({ marketName, marketImage, marketLabel }: { marketName:
           />
         </div>
       </div>
-      <div className="text-xs font-normal text-white">{`${marketLabel[0].toUpperCase()}${marketLabel.slice(1)}`}</div>
+      <span style={{
+        color: marketTextColor,
+      }} className="text-xs font-normal">{`${marketLabel[0].toUpperCase()}${marketLabel.slice(1)}`}</span>
     </div>
   );
 };

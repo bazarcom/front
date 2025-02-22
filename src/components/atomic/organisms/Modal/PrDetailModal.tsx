@@ -2,6 +2,7 @@
 
 import { MiniSort } from '@atoms/Filter/MiniSort';
 import { QuantitySelector } from '@atoms/QuantitySelector/QuantitySelector';
+import { markets } from "@constants/markets";
 import { MiniPCard } from '@molecules/PCard/MiniPCard';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
@@ -138,7 +139,7 @@ const OtherMarkets = ({ productId, product, products, handleAddProduct, quantity
               badge="cheapest"
               name={product.name}
               marketName={bestOffer.store_name}
-              marketImage={"https://placehold.jp/3d4070/ffffff/150x150.png"}
+              marketImage={markets[bestOffer.store_name].logo}
               price={bestOffer.price}
               id={product["_id"]}
             />
@@ -167,7 +168,7 @@ const OtherMarkets = ({ productId, product, products, handleAddProduct, quantity
                 key={index}
                 name={product.name}
                 marketName={store.store_name}
-                marketImage={"https://placehold.jp/3d4070/ffffff/150x150.png"}
+                marketImage={markets[store.store_name].logo}
                 price={store.price}
                 id={product["_id"]}
               />

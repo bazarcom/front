@@ -1,39 +1,51 @@
 export const markets: {
   [key: string]: {
     label: string;
-    name: string;
+    logo: string;
+    bgColor: string;
+    marketTextColor: string;
   };
 } = {
-  WOLT_MARKET: {
-    label: 'Wolt Market',
-    name: 'WOLT_MARKET',
+  araz: {
+    label: "Araz Market",
+    logo: "/markets/araz.svg",
+    bgColor: "#FFF",
+    marketTextColor: "#000",
   },
-  BAZARSTORE_MARKET: {
-    label: 'Bazarstore',
-    name: 'BAZARSTORE',
+  bazarstore: {
+    label: "Bazarstore",
+    logo: "/markets/bravo.svg",
+    bgColor: "#77BA1C",
+    marketTextColor: "#FFF",
   },
-  BRAVO_MARKET: {
-    label: 'Bravo Market',
-    name: 'BRAVO_MARKET',
+  bravo: {
+    label: "Bravo",
+    logo: "/markets/bravo.svg",
+    bgColor: "#77BA1C",
+    marketTextColor: "#FFF",
   },
-  NEPTUN_MARKET: {
+  neptun: {
     label: 'Neptun Market',
-    name: 'NEPTUN_MARKET',
+    logo: "/markets/neptun.svg",
+    bgColor: "#FF7101",
+    marketTextColor: "#FFF",
   },
-  BOLMART_MARKET: {
-    label: 'Bolmart Market',
-    name: 'BOLMART_MARKET',
+  spar: {
+    label: 'Spar Market',
+    logo: "/markets/rahat.svg",
+    bgColor: "#77BA1C",
+    marketTextColor: "#FFF",
   },
-  ARAZ_MARKET: {
-    label: 'Araz Market',
-    name: 'ARAZ_MARKET',
-  },
-  INDI_MARKET: {
-    label: 'Indi Market',
-    name: 'INDI_MARKET',
-  },
-  RAHAT_MARKET: {
+  rahat: {
     label: 'Rahat Market',
-    name: 'RAHAT_MARKET',
+    logo: "/markets/rahat.svg",
+    bgColor: "#000000",
+    marketTextColor: "#FFF",
   },
 };
+
+
+
+
+
+
