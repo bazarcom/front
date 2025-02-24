@@ -1,6 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from "react-hot-toast";
 import * as yup from 'yup';
+
+import { sendContactUs } from "@/actions/sendContactUs";
+import { SendContactFormDto } from "@/types/SendContactFormDto";
 
 const schema = yup
   .object({
@@ -11,22 +16,27 @@ const schema = yup
       .string()
       .matches(/^\+994 \(\d{2}\) \d{3}-\d{2}-\d{2}$/, 'Telefon nömrəsi tam olmalıdır')
       .required('Telefon nömrəsi daxil edilməlidir'),
-    message: yup.string().required('Mesaj daxil edilməlidir').max(500, 'Mesaj 500 simvoldan çox ola bilməz'),
+    message: yup.string().required('Mesaj daxil edilməlidir').max(250, 'Mesaj 250 simvoldan çox ola bilməz'),
   })
   .required();
-
-type FormData = yup.InferType<typeof schema>;
 
 const useContactForm = () => {
   const {
     register,
     handleSubmit,
+    getValues,
+    reset,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<SendContactFormDto>({
     resolver: yupResolver(schema),
+    mode: 'all',
+    reValidateMode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<SendContactFormDto> = async (data: SendContactFormDto) => {
+    setLoading(() => true);
     const numbers = '0123456789';
     const newFormattedData = {
       ...data,
@@ -42,11 +52,19 @@ const useContactForm = () => {
     };
 
     console.log(newFormattedData);
+    try {
+      await sendContactUs(data);
+      toast.success('Mesajınız göndərildi! Ən qısa zamanda sizinlə əlaqə saxlanılacaq');
+      reset();
+    } catch(_error:unknown) {
+      console.error(_error);
+      toast.error('Xəta baş verdi. Zəhmət olmasa biraz sonra yenidən cəhd edin');
+    }
 
     return newFormattedData;
   };
 
-  return { register, onSubmit, errors, handleSubmit };
+  return { register, getValues, onSubmit, loading, errors, handleSubmit };
 };
 
 export { useContactForm };

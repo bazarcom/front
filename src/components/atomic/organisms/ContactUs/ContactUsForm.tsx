@@ -8,7 +8,7 @@ import { useContactForm } from '@/hooks/useContactForm';
 import { cn } from '@/lib/utils';
 
 const ContactUsForm = () => {
-  const { errors, register, onSubmit, handleSubmit } = useContactForm();
+  const { errors, register, onSubmit, loading,  handleSubmit } = useContactForm();
 
   return (
     <div className="w-full max-w-[704px] rounded-lg bg-white px-8 py-16 shadow-[0px_10px_35px_0px_rgba(0,0,0,0.03)] md:px-16">
@@ -21,28 +21,35 @@ const ContactUsForm = () => {
           <FormInput
             {...register('firstName')}
             placeholder="Ad"
+            disabled={loading}
           />
           <FormInput
             {...register('lastName')}
             placeholder="Soyad"
+            disabled={loading}
           />
           <FormInput
             {...register('email')}
             placeholder="Email"
+            disabled={loading}
           />
           <InputMask
             {...register('phoneNumber')}
             mask="+994 (__) ___-__-__"
             replacement={{ _: /\d/ }}
             placeholder="+994 ___"
+            disabled={loading}
             className="md:font-regular rounded-lg border border-[#EBEBEB] bg-[#FCFCFC] p-[14px] text-base font-medium text-[#000A38] shadow-[0px_4px_15px_-2px_rgba(24,39,75,0.04)] placeholder:text-[#000A38] focus:outline-none"
           />
+          {/* add on change of react hook form */}
           <TextArea
             {...register('message')}
             placeholder="Fikirləriniz..."
             rows={6}
+            disabled={loading}
             className="md:font-regular rounded-lg border border-[#EBEBEB] bg-[#FCFCFC] p-[14px] text-base font-medium text-[#000A38] shadow-[0px_4px_15px_-2px_rgba(24,39,75,0.04)] placeholder:text-[#C3C8C9] focus:outline-none md:col-span-2"
           />
+
         </div>
         <div className="mb-10 flex flex-col gap-4">
           {errors.firstName && <div className="rounded-md border border-red-300 bg-red-100 px-3 py-2 text-red-500">{errors.firstName?.message}</div>}
@@ -52,7 +59,9 @@ const ContactUsForm = () => {
           {errors.message && <div className="rounded-md border border-red-300 bg-red-100 px-3 py-2 text-red-500">{errors.message?.message}</div>}
         </div>
         <div className="flex justify-center">
-          <FormSubmitButton />
+          <FormSubmitButton
+            disabled={loading}
+          />
         </div>
       </form>
     </div>
@@ -77,10 +86,13 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(function FormInpu
   );
 });
 
-const FormSubmitButton = () => {
+const FormSubmitButton = ({ disabled }: {
+    disabled: boolean;
+}) => {
   return (
     <Button
       type="submit"
+      isDisabled={disabled}
       className="w-full rounded-full bg-[hsl(162,71%,38%)] py-3 text-xl font-semibold text-white transition hover:bg-[hsl(162,71%,34%)] md:w-fit md:px-[90px]">
       Göndər
     </Button>
