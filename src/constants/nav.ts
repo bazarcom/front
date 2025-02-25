@@ -8,10 +8,6 @@ export const navs = [
     path: '/basket',
   },
   {
-    title: 'Bloq',
-    path: '/blog',
-  },
-  {
     title: 'Haqqımızda',
     path: '/about',
   },
