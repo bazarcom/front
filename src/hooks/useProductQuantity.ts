@@ -23,7 +23,11 @@ const useProductQuantity = () => {
     }
   }
 
-  return { handleInc, handleDec, handleAddProductToBasket, quantity };
+  const handleEmpty = () => {
+    setQuantity(1);
+  }
+
+  return { handleInc, handleEmpty, handleDec, handleAddProductToBasket, quantity };
 };
 
 export { useProductQuantity };

@@ -15,12 +15,14 @@ import { Product } from "@/types/product";
 import { ModalHeading } from './ModalHeading';
 
 const PrDetailModal = () => {
-  const { product, loading, error, isOpen, setOpen, quantity, handleInc, handleDec, handleAddProductToBasket, productId } = usePrModal();
+  const { product, loading, error, isOpen, handleEmpty, setOpen, quantity, handleInc, handleDec, handleAddProductToBasket, productId } = usePrModal();
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handleClose = () => {
     setOpen(false);
+    handleEmpty();
+
     router.push('/', {
       scroll: false,
     });

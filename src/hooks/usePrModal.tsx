@@ -8,7 +8,7 @@ import { useProductQuantity } from './useProductQuantity';
 const usePrModal = () => {
   const searchParams = useSearchParams();
   const productId = searchParams.get('product');
-  const { handleInc, handleDec, quantity, handleAddProductToBasket } = useProductQuantity();
+  const { handleInc, handleDec, quantity, handleAddProductToBasket, handleEmpty } = useProductQuantity();
   const [product, setProduct] = useState<Product | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -62,7 +62,7 @@ const usePrModal = () => {
     }
   }, [isOpen]);
 
-  return { product, loading, error, isOpen, setOpen, handleInc, handleDec, quantity, handleAddProductToBasket, productId };
+  return { product, loading, handleEmpty, error, isOpen, setOpen, handleInc, handleDec, quantity, handleAddProductToBasket, productId };
 };
 
 export { usePrModal };
