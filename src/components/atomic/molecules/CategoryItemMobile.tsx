@@ -1,32 +1,15 @@
 'use client';
 
-import { CategoryItemTop } from '@atoms/CategoryItemTop';
 import { useSelectCategory } from '@hooks/useSelectCategory';
-import { SvgArrowDown } from '@icons/SvgArrowDown';
-import { SvgPlus } from '@icons/SvgPlus';
 import { cn } from "@lib/utils";
-import { CategoryListItem } from '@molecules/CategoryListItem';
-import { Button, Dropdown } from 'antd';
 import Image from "next/image";
-import { ReactNode, useState } from 'react';
-
-// Temporary creating here. After adding API, we can remove type from here.
-type SubMenu = {
-  title: string;
-  id: number;
-  urlKey: string;
-};
-
-interface SubMenuProps {
-  subMenu: SubMenu[];
-}
 
 interface CategoryIconProps {
   icon: string;
   label: string;
 }
 
-interface CategoryItemMobileProps extends SubMenuProps, CategoryIconProps {
+interface CategoryItemMobileProps extends CategoryIconProps {
   title?: string;
 }
 

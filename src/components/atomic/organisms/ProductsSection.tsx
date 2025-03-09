@@ -67,6 +67,7 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         <div className="flex items-center gap-2.5 overflow-scroll scrollbar-hide md:hidden md:min-w-[375px]">
           {categories.map((category) => (
             <CategoryItemMobile
+
               key={category.label}
               icon={category.icon}
               title={category.title}
