@@ -174,37 +174,14 @@ export const categories = [
   //     },
   //   ],
   // },
+  // {
+  //   title: 'Hamsı',
+  //   label: '',
+  //   icon: '/icons/sugar.svg',
+  // },
   {
-    title: 'İçkilər',
-    label: 'İçkilər',
-    categoryGroup: 'category',
+    title: 'Enerji içkilər',
+    label: 'energy_drinks',
     icon: '/icons/sugar.svg',
-    subMenu: [
-      {
-        title: 'Qazlı şirin içkilər',
-        id: 23,
-        urlKey: 'carbonated_sweet_drinks',
-      },
-      {
-        title: 'Soyuq çaylar',
-        id: 24,
-        urlKey: 'iced_teas',
-      },
-      {
-        title: 'Meyvə şirələri',
-        id: 25,
-        urlKey: 'juices_and_nectars',
-      },
-      {
-        title: 'Enerji içkilər',
-        id: 26,
-        urlKey: 'energy_drinks',
-      },
-      {
-        title: 'Digər içkilər',
-        id: 27,
-        urlKey: 'other_non_alcoholic',
-      },
-    ],
   },
 ];

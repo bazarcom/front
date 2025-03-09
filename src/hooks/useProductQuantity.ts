@@ -25,7 +25,7 @@ const useProductQuantity = () => {
 
   const handleEmpty = () => {
     setQuantity(1);
-  }
+  };
 
   return { handleInc, handleEmpty, handleDec, handleAddProductToBasket, quantity };
 };
