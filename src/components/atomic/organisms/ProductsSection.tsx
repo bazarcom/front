@@ -27,7 +27,6 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
   const { createQueryString } = useQueryString();
   const router = useRouter();
   const pathname = usePathname();
-  const { toggleCategory, isOpen } = useCategoryState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -101,40 +100,43 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-end gap-[5px] xs:flex-row">
-        <button
-          onClick={() => onChange(+Number(page) - 1)}
-          disabled={+Number(page) === +MIN_PAGE}
-          className={cn({
-            'hidden rounded-md bg-white px-1 py-2.5 text-sm font-semibold transition-all duration-300 xs:block': true,
-            'text-[#333]': +Number(page) !== MIN_PAGE,
-            'text-[#ccc]': +Number(page) === MIN_PAGE,
-          })}>
-          Öncəki
-        </button>
-        <Pagination
-          siblings={0}
-          loop
-          page={Number(page) || 1}
-          total={totalPages}
-          onChange={onChange}
-          color="warning"
-          initialPage={1}
-          classNames={{
-            base: 'gap-[5px] flex justify-end',
-            item: 'p-[10px] text-black bg-transparent',
-            cursor: 'text-white bg-[#F79219]',
-          }}
-        />
-        <button
-          onClick={() => onChange(+Number(page) + 1)}
-          disabled={+Number(page) === +totalPages}
-          className={cn({
-            'hidden rounded-md bg-white px-1 py-2.5 text-sm font-semibold transition-all duration-300 xs:block': true,
-            'text-[#333]': +Number(page) !== totalPages,
-            'text-[#ccc]': +Number(page) === totalPages,
-          })}>
-          Növbəti
-        </button>
+        {/*<button*/}
+        {/*  onClick={() => onChange(+Number(page) - 1)}*/}
+        {/*  disabled={+Number(page) === +MIN_PAGE}*/}
+        {/*  className={cn({*/}
+        {/*    'hidden rounded-md bg-white px-1 py-2.5 text-sm font-semibold transition-all duration-300 xs:block': true,*/}
+        {/*    'text-[#333]': +Number(page) !== MIN_PAGE,*/}
+        {/*    'text-[#ccc]': +Number(page) === MIN_PAGE,*/}
+        {/*  })}>*/}
+        {/*  Öncəki*/}
+        {/*</button>*/}
+        {totalPages > 1 && (
+            <Pagination
+                siblings={0}
+                loop
+                page={Number(page) || 1}
+                total={totalPages}
+                onChange={onChange}
+                initialPage={1}
+                color="warning"
+                showControls
+                classNames={{
+                  base: 'gap-[5px] flex justify-end',
+                  item: 'p-[10px] text-black bg-transparent !data-[active=true]:bg-black',
+                  cursor: 'text-white bg-[#F79219]',
+                }}
+            />
+        )}
+        {/*<button*/}
+        {/*  onClick={() => onChange(+Number(page) + 1)}*/}
+        {/*  disabled={+Number(page) === +totalPages}*/}
+        {/*  className={cn({*/}
+        {/*    'hidden rounded-md bg-white px-1 py-2.5 text-sm font-semibold transition-all duration-300 xs:block': true,*/}
+        {/*    'text-[#333]': +Number(page) !== totalPages,*/}
+        {/*    'text-[#ccc]': +Number(page) === totalPages,*/}
+        {/*  })}>*/}
+        {/*  Növbəti*/}
+        {/*</button>*/}
       </div>
     </section>
   );
