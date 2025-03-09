@@ -32,7 +32,7 @@ export const markets: {
   },
   spar: {
     label: 'Spar Market',
-    logo: "/markets/rahat.svg",
+    logo: "/markets/spar.png",
     bgColor: "#77BA1C",
     marketTextColor: "#FFF",
   },
