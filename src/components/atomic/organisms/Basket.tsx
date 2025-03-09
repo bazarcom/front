@@ -10,20 +10,14 @@ import { Button } from "react-aria-components";
 import { Basket as BasketT } from "@/types/basket";
 
 const Basket = () => {
-  const { handleRemoveProduct, handleDecrementProduct, handleIncrementProduct, getTotalProductCount, getTotalPrice, allBasketProducts } = useBasket();
-
-  const handleRemoveAllProducts = () => {
-    allBasketProducts.forEach((product) => {
-      handleRemoveProduct(product["_id"], product.offer["_id"]);
-    });
-  };
+  const { handleRemoveProduct, handleRemoveAllProducts, handleDecrementProduct, handleIncrementProduct, getTotalProductCount, getTotalPrice, allBasketProducts } = useBasket();
 
   return (
     <section
       className="mt-9"
       id="basket">
       <div className="flex flex-col items-start gap-16 md:flex-row md:gap-5">
-        <div className="flex flex-col gap-4 w-full pr-1 max-w-[820px] max-h-[80vh] md:max-h-[65vh]">
+        <div className="flex flex-col gap-4 w-full pr-1 max-w-[820px] max-h-[80vh] md:max-h-[70vh] overflow-y-scroll">
           <Button onPress={handleRemoveAllProducts} className="bg-search focus:outline-none md:hover:scale-105 transition-all duration-300 text-white py-2 px-4 max-w-[200px] rounded-md">
             Səbəti boşalt
           </Button>

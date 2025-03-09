@@ -12,7 +12,7 @@ type UseBasket = {
   getTotalPrice: () => { totalPrice: number; totalHighestPrice: number } | undefined;
   getTotalProductCount: () => number;
   allBasketProducts: Basket[];
-
+  handleRemoveAllProducts: () => void;
 };
 
 const useBasket = (): UseBasket => {
@@ -79,6 +79,11 @@ const useBasket = (): UseBasket => {
     syncStateAndLocalStorage(updatedProducts);
   };
 
+  const handleRemoveAllProducts = () => {
+    clearBasket();
+    localStorage.removeItem('basket');
+  };
+
   const syncStateAndLocalStorage = useCallback(
     (products: Basket[]) => {
       clearBasket();
@@ -129,6 +134,7 @@ const useBasket = (): UseBasket => {
   return {
     allBasketProducts,
     handleIncrementProduct,
+    handleRemoveAllProducts,
     handleAddProduct,
     handleDecrementProduct,
     handleRemoveProduct,
