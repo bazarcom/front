@@ -21,15 +21,14 @@ const CategoryItemTop = ({ icon, isActive, label, title, onClick, ...props }: Ca
         'cursor-pointer': !title,
         'bg-category-selected-bg': isActive,
       })}>
-      {/*Just simple image component cuz we needn't change colors of these svgs*/}
       <div className="flex items-center md:gap-[14px]">
         <div className={`flex h-[30px] w-[30px] items-center justify-center rounded-md bg-category-icon p-1`}>
           <Image
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
             src={icon}
             alt={label}
-            width={21}
-            height={21}
+            width={25}
+            height={25}
           />
         </div>
         <p className="text-base font-semibold text-category-label">{title}</p>
