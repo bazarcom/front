@@ -2,7 +2,7 @@
 
 import { useQueryString } from "@hooks/useQueryString";
 import { SvgSearch } from '@icons/SvgSearch';
-import {useRouter, useSearchParams} from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect,useState } from 'react';
 import { Button, Input, TextField } from 'react-aria-components';
 

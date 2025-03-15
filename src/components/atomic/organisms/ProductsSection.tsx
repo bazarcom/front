@@ -1,7 +1,6 @@
 'use client';
 
 import { categories } from '@constants/categories';
-import { useCategoryState } from '@hooks/useCategoryState';
 import { useQueryString } from '@hooks/useQueryString';
 import { cn } from '@lib/utils';
 import { CategoryItemMobile } from '@molecules/CategoryItemMobile';
@@ -9,7 +8,7 @@ import { PCard } from '@molecules/PCard/PCard';
 import { Pagination } from '@nextui-org/pagination';
 import { CategoryFilter } from '@organisms/CategoryFilter';
 import { FilterSection } from '@organisms/FilterSection';
-import {usePathname, useRouter, useSearchParams} from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
 import { Product } from "@/types/product";
@@ -27,33 +26,66 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('name');
+  const sortQuery = searchParams.get('sort');
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
-    (async () => {
-      try {
-        setProducts(() => []);
-        setTotalPages(() => 0);
-        setLoading(() => true);
-        const res = await fetch(`https://bazarcom-backend-api.onrender.com/api/v1/products?page=${page}${category ? `&category=${category}` : ''}${searchQuery ? `&name=${searchQuery}` : ''}`)
-          .then((res) => res.json());
+    const abortController = new AbortController();
+    const signal = abortController.signal;
 
-        setTotalPages(() => res.totalPages);
-        setProducts(() => res.products);
-        setError(null);
-      } catch(e:unknown) {
-        console.error(e);
+    const fetchProducts = async () => {
+      try {
+        setProducts([]);
+        setTotalPages(0);
+        setLoading(true);
+
+        const url = new URL('https://bazarcom-backend-api.onrender.com/api/v1/products');
+        const params = new URLSearchParams();
+        params.append('page', page as string);
+        params.append('limit', '21');
+        // eslint-disable-next-line no-unused-expressions,@typescript-eslint/no-unused-expressions
+        category ? params.append('category', category as string) : null;
+        // eslint-disable-next-line no-unused-expressions,@typescript-eslint/no-unused-expressions
+        sortQuery ? params.append('sort', sortQuery as string) : null;
+        // eslint-disable-next-line no-unused-expressions,@typescript-eslint/no-unused-expressions
+        searchQuery ? params.append('name', searchQuery as string) : null;
+
+
+        url.search = params.toString();
+
+        const response = await fetch(url.toString(), { signal });
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const data = await response.json();
+
+        // Не обновляем состояние если запрос был отменен
+        if (!signal.aborted) {
+          setTotalPages(data.totalPages);
+          setProducts(data.products);
+          setError(null);
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
         setProducts([]);
         setError('Something went wrong.. Please try again later.');
+      } finally {
+        if (!signal.aborted) {
+          setLoading(false);
+        }
       }
-      finally {
-        setLoading(() => false);
-      }
-    })();
-  }, [page, category, searchQuery]);
+    };
+
+    fetchProducts();
+
+    // Функция очистки для отмены запроса при размонтировании или новом запросе
+    return () => {
+      abortController.abort();
+    };
+  }, [page, category, sortQuery, searchQuery]);
 
   const onChange = (page: number) => {
     const searchParams = createQueryString('page', String(page));

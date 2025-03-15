@@ -27,14 +27,14 @@ const Sort = () => {
 
   const items: MenuProps['items'] = [
     {
-      label: 'Artan',
-      onClick: () => handleMenuClick({ key: 'desc' }),
-      key: 'desc',
+      label: 'Azalan',
+      onClick: () => handleMenuClick({ key: 'price_desc' }),
+      key: 'price_desc',
     },
     {
-      label: 'Azalan',
-      onClick: () => handleMenuClick({ key: 'asc' }),
-      key: 'asc',
+      label: 'Artan',
+      onClick: () => handleMenuClick({ key: 'price_asc' }),
+      key: 'price_asc',
     },
   ];
 
@@ -55,7 +55,7 @@ const Sort = () => {
           boxShadow: 'none',
         }}>
         <SvgSort className="h-5 w-5 stroke-[rgba(41,45,50,1)] md:h-6 md:w-6" />
-        <div className="text-base font-medium text-[rgba(102,102,102,1)]">{sortType === 'desc' ? 'Artan' : sortType === 'asc' ? 'Azalan' : 'Sırala'}</div>
+        <div className="text-base font-medium text-[rgba(102,102,102,1)]">{sortType === 'price_desc' ? 'Azalan' : sortType === 'price_asc' ? 'Artan' : 'Sırala'}</div>
         <SvgArrow
           className={cn({
             'hidden h-6 w-6 rotate-90 stroke-[rgba(41,45,50,1)] transition duration-300 md:block': true,
