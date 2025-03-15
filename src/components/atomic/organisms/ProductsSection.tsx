@@ -9,7 +9,7 @@ import { PCard } from '@molecules/PCard/PCard';
 import { Pagination } from '@nextui-org/pagination';
 import { CategoryFilter } from '@organisms/CategoryFilter';
 import { FilterSection } from '@organisms/FilterSection';
-import { usePathname, useRouter } from 'next/navigation';
+import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
 import { Product } from "@/types/product";
@@ -20,13 +20,13 @@ type ProductsSectionProps = {
   category: string | string[] | undefined;
 };
 
-const MIN_PAGE = 1;
-
 const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
   const isReversed = pView === 'list';
   const { createQueryString } = useQueryString();
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get('name');
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -38,7 +38,7 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         setProducts(() => []);
         setTotalPages(() => 0);
         setLoading(() => true);
-        const res = await fetch(`https://bazarcom-backend-api.onrender.com/api/v1/products?page=${page}${category ? `&category=${category}` : ''}`)
+        const res = await fetch(`https://bazarcom-backend-api.onrender.com/api/v1/products?page=${page}${category ? `&category=${category}` : ''}${searchQuery ? `&name=${searchQuery}` : ''}`)
           .then((res) => res.json());
 
         setTotalPages(() => res.totalPages);
@@ -53,7 +53,7 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         setLoading(() => false);
       }
     })();
-  }, [page, category]);
+  }, [page, category, searchQuery]);
 
   const onChange = (page: number) => {
     const searchParams = createQueryString('page', String(page));
@@ -111,21 +111,21 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         {/*  Öncəki*/}
         {/*</button>*/}
         {totalPages > 1 && (
-            <Pagination
-                siblings={0}
-                loop
-                page={Number(page) || 1}
-                total={totalPages}
-                onChange={onChange}
-                initialPage={1}
-                color="warning"
-                showControls
-                classNames={{
-                  base: 'gap-[5px] flex justify-end',
-                  item: 'p-[10px] text-black bg-transparent !data-[active=true]:bg-black',
-                  cursor: 'text-white bg-[#F79219]',
-                }}
-            />
+          <Pagination
+            siblings={0}
+            loop
+            page={Number(page) || 1}
+            total={totalPages}
+            onChange={onChange}
+            initialPage={1}
+            color="warning"
+            showControls
+            classNames={{
+              base: 'gap-[5px] flex justify-end',
+              item: 'p-[10px] text-black bg-transparent !data-[active=true]:bg-black',
+              cursor: 'text-white bg-[#F79219]',
+            }}
+          />
         )}
         {/*<button*/}
         {/*  onClick={() => onChange(+Number(page) + 1)}*/}

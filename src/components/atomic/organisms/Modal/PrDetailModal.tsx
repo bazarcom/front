@@ -135,45 +135,45 @@ const OtherMarkets = ({ productId, product, products, handleAddProduct, quantity
     const otherOffers = sortedOffers.filter((offer) => offer["_id"] !== bestOffer["_id"]);
 
     return (
-        // Остальная часть компонента без изменений
-        <div>
-          <div className="relative z-10 mb-4 flex items-center justify-between">
-            <h4 className="text-base font-semibold text-[#1E285F]">Digər marketlər</h4>
-            <MiniSort />
-          </div>
-          <div className="max-h-[400px] overflow-y-auto pb-4 md:max-h-[430px]">
-            <div className="flex flex-col gap-4">
+    // Остальная часть компонента без изменений
+      <div>
+        <div className="relative z-10 mb-4 flex items-center justify-between">
+          <h4 className="text-base font-semibold text-[#1E285F]">Digər marketlər</h4>
+          <MiniSort />
+        </div>
+        <div className="max-h-[400px] overflow-y-auto pb-4 md:max-h-[430px]">
+          <div className="flex flex-col gap-4">
+            <MiniPCard
+              product={product}
+              marketLabel={bestOffer.store_name}
+              offerId={bestOffer["_id"]}
+              quantity={quantity}
+              handleAddProduct={handleAddProduct}
+              badge="cheapest"
+              name={product.name}
+              marketName={bestOffer.store_name}
+              marketImage={markets[bestOffer.store_name].logo}
+              price={bestOffer.price}
+              id={product["_id"]}
+            />
+            {otherOffers.map((store, index) => (
               <MiniPCard
-                  product={product}
-                  marketLabel={bestOffer.store_name}
-                  offerId={bestOffer["_id"]}
-                  quantity={quantity}
-                  handleAddProduct={handleAddProduct}
-                  badge="cheapest"
-                  name={product.name}
-                  marketName={bestOffer.store_name}
-                  marketImage={markets[bestOffer.store_name].logo}
-                  price={bestOffer.price}
-                  id={product["_id"]}
+                product={product}
+                marketLabel={store.store_name}
+                offerId={store["_id"]}
+                quantity={quantity}
+                handleAddProduct={handleAddProduct}
+                key={index}
+                name={product.name}
+                marketName={store.store_name}
+                marketImage={markets[store.store_name].logo}
+                price={store.price}
+                id={product["_id"]}
               />
-              {otherOffers.map((store, index) => (
-                  <MiniPCard
-                      product={product}
-                      marketLabel={store.store_name}
-                      offerId={store["_id"]}
-                      quantity={quantity}
-                      handleAddProduct={handleAddProduct}
-                      key={index}
-                      name={product.name}
-                      marketName={store.store_name}
-                      marketImage={markets[store.store_name].logo}
-                      price={store.price}
-                      id={product["_id"]}
-                  />
-              ))}
-            </div>
+            ))}
           </div>
         </div>
+      </div>
     );
   }
 };
