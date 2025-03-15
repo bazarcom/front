@@ -71,7 +71,9 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
       } catch (error) {
         console.error('Fetch error:', error);
         setProducts([]);
-        setError('Something went wrong.. Please try again later.');
+        if(!signal.aborted) {
+          setError('Error fetching data. Please try again later.');
+        }
       } finally {
         if (!signal.aborted) {
           setLoading(false);

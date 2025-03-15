@@ -11,11 +11,11 @@ import { cn } from '@/lib/utils';
 
 const items = [
   {
-    label: 'Azalan',
+    label: 'Artan',
     key: 'asc',
   },
   {
-    label: 'Artan',
+    label: 'Azalan',
     key: 'desc',
   },
 ];
@@ -59,7 +59,7 @@ const MiniSort = () => {
           boxShadow: 'none',
         }}>
         <SvgSort className="h-4 w-4 stroke-[rgba(41,45,50,1)]" />
-        <div className="text-[13px] font-medium text-[rgba(102,102,102,1)]">{sortType === 'desc' ? 'Artan' : sortType === 'asc' ? 'Azalan' : 'Sırala'}</div>
+        <div className="text-[13px] font-medium text-[rgba(102,102,102,1)]">{sortType === 'desc' ? 'Azalan' : sortType === 'asc' ? 'Artan' : 'Sırala'}</div>
         <SvgArrow
           className={cn({
             'block h-4 w-4 rotate-90 stroke-[rgba(41,45,50,1)] transition duration-300': true,
