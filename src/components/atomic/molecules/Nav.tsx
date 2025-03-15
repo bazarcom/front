@@ -1,6 +1,6 @@
 'use client';
 
-import { useBasket } from "@hooks/useBasket";
+import { useBasket } from '@hooks/useBasket';
 import Link from 'next/link';
 
 import { SvgBag } from '@/icons/SvgBag';
@@ -19,8 +19,8 @@ const Nav = () => {
       </Link>
       <Link
         className="text-lg font-semibold text-[rgba(62,78,80,1)]"
-        href="/about">
-        Haqqımızda
+        href="/contact-us">
+        Bizimlə əlaqə
       </Link>
     </div>
   );

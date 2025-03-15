@@ -19,7 +19,7 @@ const CategoryItem = ({ icon, title, label }: CategoryItemProps) => {
   const { setCategory, isCategoryExists } = useSelectCategory();
 
   return (
-    <div className={`hidden flex-col rounded-sm bg-white p-4 transition-all duration-300 md:flex`}>
+    <div className={`hidden flex-col rounded-sm bg-white p-2 transition-all duration-300 md:flex`}>
       {/*{title && <h3 className="color-category-name mb-[23px] text-lg font-semibold">{title}</h3>}*/}
       <CategoryItemTop
         onClick={() => setCategory('category', label)}

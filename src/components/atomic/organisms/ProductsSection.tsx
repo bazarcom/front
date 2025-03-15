@@ -5,13 +5,14 @@ import { useQueryString } from '@hooks/useQueryString';
 import { cn } from '@lib/utils';
 import { CategoryItemMobile } from '@molecules/CategoryItemMobile';
 import { PCard } from '@molecules/PCard/PCard';
+import { ProductsLoadingState } from '@molecules/ProductsLoadingState';
 import { Pagination } from '@nextui-org/pagination';
 import { CategoryFilter } from '@organisms/CategoryFilter';
 import { FilterSection } from '@organisms/FilterSection';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
-import { Product } from "@/types/product";
+import { Product } from '@/types/product';
 
 type ProductsSectionProps = {
   pView: string | string[] | undefined;
@@ -53,7 +54,6 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         // eslint-disable-next-line no-unused-expressions,@typescript-eslint/no-unused-expressions
         searchQuery ? params.append('name', searchQuery as string) : null;
 
-
         url.search = params.toString();
 
         const response = await fetch(url.toString(), { signal });
@@ -71,7 +71,7 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
       } catch (error) {
         console.error('Fetch error:', error);
         setProducts([]);
-        if(!signal.aborted) {
+        if (!signal.aborted) {
           setError('Error fetching data. Please try again later.');
         }
       } finally {
@@ -100,7 +100,6 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         <div className="flex items-center gap-2.5 overflow-scroll scrollbar-hide md:hidden md:min-w-[375px]">
           {categories.map((category) => (
             <CategoryItemMobile
-
               key={category.label}
               icon={category.icon}
               title={category.title}
@@ -119,17 +118,21 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
               'grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3': true,
               'grid-cols-1 md:grid-cols-1 lg:grid-cols-1': isReversed,
             })}>
-            {loading && <div className="text-lg font-semibold">Loading...</div>}
-            {error && <div className="text-red-500 text-lg font-semibold">{error}</div>}
-            {products && products.length > 0 && products.map((product) => {
-              return (
-                <PCard
-                  key={product["_id"]}
-                  product={product}
-                  isReverse={isReversed}
-                />
-              );
-            })}
+            <ProductsLoadingState
+              loading={loading}
+              error={error}
+            />
+            {products &&
+              products.length > 0 &&
+              products.map((product) => {
+                return (
+                  <PCard
+                    key={product['_id']}
+                    product={product}
+                    isReverse={isReversed}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ const Footer = () => {
       <div className="container">
         <div className="mb-[60px] flex flex-col gap-5 md:items-center md:justify-center">
           <FooterLogo className="h-10 w-8" />
-          <div className="max-w-[382px] text-base font-normal text-white/50 md:text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</div>
+          <div className="max-w-[382px] text-base font-normal text-white/50 md:text-center">Bazarkom.az - Agilli bazarliq burdan bashlayir!</div>
         </div>
         <div className="mb-[60px] flex flex-col justify-start gap-10 font-normal md:flex-row md:justify-center md:gap-[60px]">
           {navs.map((nav) => {
@@ -26,11 +26,6 @@ const Footer = () => {
               </Link>
             );
           })}
-          <Link
-            href="/contact-us"
-            className="text-base text-white">
-            Bizimlə əlaqə
-          </Link>
         </div>
         <div className="flex items-center justify-start gap-10 md:justify-center md:gap-[60px]">
           <Facebook className="h-5 w-2.5 fill-white" />

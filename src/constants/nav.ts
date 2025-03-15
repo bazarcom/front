@@ -11,4 +11,8 @@ export const navs = [
     title: 'Haqqımızda',
     path: '/about',
   },
+  {
+    title: 'Bizimlə əlaqə',
+    path: '/contact-us',
+  },
 ];
