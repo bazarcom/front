@@ -9,7 +9,7 @@ type BasketTotalProps = {
   totalProductsCount: number;
 };
 
-const BasketTotal = ({ productsCount, totalProductsCount, productsTotalPrice, productsTotalHighestPrice }: BasketTotalProps) => {
+const BasketTotal = ({ productsCount, totalProductsCount, productsTotalPrice }: BasketTotalProps) => {
   return (
     <div className="w-full max-w-none overflow-hidden rounded-lg border border-solid border-basket-product-border p-5 md:max-w-[400px]">
       <div className="flex items-center justify-between">
