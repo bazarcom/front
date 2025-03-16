@@ -11,7 +11,7 @@ type BasketTotalProps = {
 
 const BasketTotal = ({ productsCount, totalProductsCount, productsTotalPrice, productsTotalHighestPrice }: BasketTotalProps) => {
   return (
-    <div className="w-full max-w-none md:max-w-[400px] overflow-hidden rounded-lg border border-solid border-basket-product-border p-5">
+    <div className="w-full max-w-none overflow-hidden rounded-lg border border-solid border-basket-product-border p-5 md:max-w-[400px]">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold text-category-name">Məhsul:</h3>
         <span className="text-basket-total">{productsCount} Məhsul</span>
@@ -27,7 +27,7 @@ const BasketTotal = ({ productsCount, totalProductsCount, productsTotalPrice, pr
           <h5 className="flex items-center gap-2.5 text-xl font-bold text-basket-price">
             {productsTotalPrice} <span>₼</span>
           </h5>
-          <span className="text-sm font-semibold text-basket-product-highest-price line-through">{productsTotalHighestPrice}</span>
+          {/* <span className="text-sm font-semibold text-basket-product-highest-price line-through">{productsTotalHighestPrice}</span> */}
         </div>
       </div>
     </div>

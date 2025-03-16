@@ -1,12 +1,12 @@
-import { markets } from "@constants/markets";
+import { markets } from '@constants/markets';
 import type { FC } from 'react';
 import { Button } from 'react-aria-components';
 
 import { Manat } from '@/icons/Currency/Manat';
 import { SvgBag } from '@/icons/SvgBag';
 import { cn } from '@/lib/utils';
-import { Basket } from "@/types/basket";
-import { Product } from "@/types/product";
+import { Basket } from '@/types/basket';
+import { Product } from '@/types/product';
 
 import { PCardStoreBadge } from './PCardStoreBadge';
 
@@ -23,11 +23,10 @@ export type MiniPCardProps = {
   handleAddProduct: (product: Basket) => void;
   quantity: number;
   marketLabel: string;
-    product: Product;
+  product: Product;
 };
 
 const MiniPCard: FC<MiniPCardProps> = ({ badge, marketLabel, product, offerId, quantity, marketName, handleAddProduct, marketImage, name, price, id }) => {
-
   return (
     <div
       className={cn({
@@ -81,9 +80,9 @@ const MiniPCard: FC<MiniPCardProps> = ({ badge, marketLabel, product, offerId, q
 
 const CardTitle = ({ name }: { name: string }) => {
   return (
-    <div className="flex h-full flex-col justify-between">
+    <div className="flex h-full flex-col justify-center">
       <div className="text-sm font-semibold text-[#1E285F] md:text-base">{name}</div>
-      <div className="hidden text-sm font-medium text-[#999999] md:block">350 gr</div>
+      {/* <div className="hidden text-sm font-medium text-[#999999] md:block">350 gr</div> */}
     </div>
   );
 };
