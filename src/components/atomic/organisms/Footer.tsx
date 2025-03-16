@@ -13,7 +13,7 @@ const Footer = () => {
       <div className="container">
         <div className="mb-[60px] flex flex-col gap-5 md:items-center md:justify-center">
           <FooterLogo className="h-10 w-8" />
-          <div className="max-w-[382px] text-base font-normal text-white/50 md:text-center">Bazarkom.az - Agilli bazarliq burdan bashlayir!</div>
+          <div className="max-w-[382px] text-base font-normal text-white/50 md:text-center">Bazarkom.az - Ağıllı bazarlıq buradan başlayır!</div>
         </div>
         <div className="mb-[60px] flex flex-col justify-start gap-10 font-normal md:flex-row md:justify-center md:gap-[60px]">
           {navs.map((nav) => {

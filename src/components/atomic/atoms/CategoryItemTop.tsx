@@ -16,9 +16,9 @@ const CategoryItemTop = ({ icon, isActive, label, title, onClick, ...props }: Ca
       {...props}
       onClick={onClick}
       className={cn({
-        'flex w-full items-center justify-between gap-14 md:gap-3 p-2': true,
+        'flex w-full items-center justify-between gap-14 p-2 md:gap-3': true,
         'cursor-default': title,
-        'cursor-pointer': !title,
+        'cursor-pointer': true,
         'bg-category-selected-bg': isActive,
       })}>
       <div className="flex items-center md:gap-[14px]">

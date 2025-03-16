@@ -1,12 +1,12 @@
 'use client';
 
-import { markets } from "@constants/markets";
+import { markets } from '@constants/markets';
 import { MOBILE_SCREEN } from '@constants/screens';
 import { useEffect, useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 
 import { useParamPath } from '@/hooks/useParamPath';
-import { Price } from "@/types/price";
+import { Price } from '@/types/price';
 
 const SMALL_SCREEN_CARD_WIDTH = 24;
 const LARGE_SCREEN_CARD_WIDTH = 28;
@@ -63,7 +63,7 @@ const PCardStores = ({ id, allMarkets }: { id: string; allMarkets: Price[] }) =>
           );
         })}
       </div>
-      <div className="text-[10px] font-normal text-[#11654C] underline md:text-xs">+ daha {storesLength} təklif</div>
+      <div className="text-[10px] font-normal text-[#11654C] underline md:text-xs">{storesLength === 1 ? '1' : `+ daha ${storesLength - 1}`} təklif var</div>
     </div>
   );
 };

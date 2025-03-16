@@ -2,7 +2,7 @@ import '@/app/styles/main.css';
 
 import { Footer } from '@organisms/Footer';
 import type { Metadata } from 'next';
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import { Heading } from '@/components/atomic/organisms/Heading/Heading';
@@ -10,8 +10,8 @@ import { Sidebar } from '@/components/atomic/organisms/Sidebar';
 import { inter } from '@/constants/fonts';
 
 export const metadata: Metadata = {
-  title: 'Bazarkom.az - Agilli bazarliq burdan bashlayir',
-  description: 'Agilli bazarliq burdan bashlayir',
+  title: 'Bazarkom.az - Ağıllı bazarlıq buradan başlayır!',
+  description: 'Ağıllı bazarlıq buradan başlayır!',
 };
 
 export default function RootLayout({
