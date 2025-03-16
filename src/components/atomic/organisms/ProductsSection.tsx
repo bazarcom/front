@@ -43,7 +43,7 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         setTotalPages(0);
         setLoading(true);
 
-        const url = new URL('https://bazarcom-backend-api.onrender.com/api/v1/products');
+        const url = new URL('https://backend-y21i.onrender.com/api/v1/products');
         const params = new URLSearchParams();
         params.append('page', page as string);
         params.append('limit', '21');

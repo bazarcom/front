@@ -1,7 +1,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { Product } from "@/types/product";
+import { Product } from '@/types/product';
 
 import { useProductQuantity } from './useProductQuantity';
 
@@ -18,17 +18,15 @@ const usePrModal = () => {
       (async () => {
         try {
           setLoading(() => true);
-          const res = await fetch(`https://bazarcom-backend-api.onrender.com/api/v1/products/${productId}`)
-            .then((res) => res.json());
+          const res = await fetch(`https://backend-y21i.onrender.com/api/v1/products/${productId}`).then((res) => res.json());
 
           setProduct(res);
           setError(null);
-        } catch(e:unknown) {
+        } catch (e: unknown) {
           console.error(e);
           setProduct(undefined);
           setError('Something went wrong.. Please try again later.');
-        }
-        finally {
+        } finally {
           setLoading(() => false);
         }
       })();
