@@ -1,6 +1,6 @@
 'use client';
 
-import { markets } from "@constants/markets";
+import { markets } from '@constants/markets';
 import { motion } from 'framer-motion';
 import { useContext } from 'react';
 
@@ -18,7 +18,7 @@ const HorizontalPCard = () => {
   const sortedOffers = product.prices.sort((a, b) => a.price - b.price);
 
   const handleClick = () => {
-    paramPath({ name: 'product', key: String(product["_id"]) });
+    paramPath({ name: 'product', key: String(product['_id']) });
     return;
   };
 
@@ -29,7 +29,7 @@ const HorizontalPCard = () => {
       exit={{ opacity: 0 }}
       onClick={handleClick}
       transition={{ duration: 0.3 }}
-      className="relative cursor-pointer grid grid-cols-[1fr_min-content] gap-6 overflow-hidden rounded bg-white py-2 ps-8 md:grid-cols-[min-content_1fr_min-content] md:py-4 md:ps-14">
+      className="relative grid cursor-pointer grid-cols-[1fr_min-content] gap-6 overflow-hidden rounded bg-white py-2 ps-8 md:grid-cols-[min-content_1fr_min-content] md:py-4 md:ps-14">
       <div className="relative hidden h-[118px] w-[148px] rounded-md bg-[#F6F6F6] p-1 md:block">
         <div className="absolute left-3 top-3 z-20">
           <PCardStoreBadge
@@ -41,7 +41,7 @@ const HorizontalPCard = () => {
           />
         </div>
         <img
-          src={product.image}
+          src={product.image.startsWith('https://consumer-static-assets.wolt.com/') ? '/no-order.png' : product.image}
           className="h-full w-full object-contain"
           alt={product.name}
         />
@@ -59,7 +59,7 @@ const HorizontalPCard = () => {
         </div>
         <PCardTitle />
         <PCardStores
-          id={product["_id"]}
+          id={product['_id']}
           allMarkets={product.prices}
         />
       </div>
@@ -72,8 +72,7 @@ const PCardTitle = () => {
   const product = useContext(CardContext);
 
   return (
-    <div
-      className="line-clamp-1 max-w-[400px] text-sm font-semibold text-[#1E285F] hover:underline md:line-clamp-3 md:text-2xl">
+    <div className="line-clamp-1 max-w-[400px] text-sm font-semibold text-[#1E285F] hover:underline md:line-clamp-3 md:text-2xl">
       {product.name} <span className="text-sm font-medium text-[#9198A2] md:text-2xl"> / eded</span>
     </div>
   );

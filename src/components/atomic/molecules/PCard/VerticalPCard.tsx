@@ -1,6 +1,6 @@
 'use client';
 
-import { markets } from "@constants/markets";
+import { markets } from '@constants/markets';
 import { motion } from 'framer-motion';
 import { useContext } from 'react';
 
@@ -17,7 +17,7 @@ const VerticalPCard = () => {
   const paramPath = useParamPath();
 
   const handleClick = () => {
-    paramPath({ name: 'product', key: String(product["_id"]) });
+    paramPath({ name: 'product', key: String(product['_id']) });
     return;
   };
 
@@ -29,14 +29,14 @@ const VerticalPCard = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="overflow-hidden cursor-pointer rounded border border-solid border-[#C3C8C9]">
+        className="cursor-pointer overflow-hidden rounded border border-solid border-[#C3C8C9]">
         <PCardImage />
         <div className="bg-white px-3 py-4">
           <PCardTitle />
           <PCardPrice />
           <div className="mb-4 h-px bg-[#ECEDEE]"></div>
           <PCardStores
-            id={product["_id"]}
+            id={product['_id']}
             allMarkets={product.prices}
           />
         </div>
@@ -62,7 +62,7 @@ const PCardImage = () => {
         />
       </div>
       <img
-        src={product.image}
+        src={product.image.startsWith('https://consumer-static-assets.wolt.com/') ? '/no-order.png' : product.image}
         className="h-full w-full object-contain"
         alt={product.name}
       />
@@ -74,8 +74,7 @@ const PCardTitle = () => {
   const product = useContext(CardContext);
 
   return (
-    <div
-      className="mb-5 text-sm font-semibold text-[#1E285F] hover:underline md:text-base">
+    <div className="mb-5 text-sm font-semibold text-[#1E285F] hover:underline md:text-base">
       {product.name} <span className="text-sm font-medium text-[#9198A2] md:text-base"> / eded</span>
     </div>
   );
