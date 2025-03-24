@@ -19,11 +19,16 @@ const PrDetailModal = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  console.log(isOpen, 'isOpen');
+
   const handleClose = () => {
     setOpen(false);
     handleEmpty();
 
-    router.push('/', {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('product');
+
+    router.push(`/?${params.toString()}`, {
       scroll: false,
     });
     document.documentElement.style.overflow = 'auto';
@@ -34,11 +39,13 @@ const PrDetailModal = () => {
     // if product field in URL is empty, close the modal
     const productId = searchParams.get('product');
     if (!productId) {
-      setOpen(false);
+      console.log('closing modal');
+      setOpen(() => false);
       document.documentElement.style.overflow = 'auto';
       document.body.style.overflow = 'auto';
     } else {
-      setOpen(true);
+      console.log('opening modal');
+      setOpen(() => true);
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     }
@@ -55,7 +62,7 @@ const PrDetailModal = () => {
   }, []);
 
   return (
-    <div className={`fixed inset-0 z-[999] flex items-center justify-center ${isOpen ? 'visible' : 'invisible'}`}>
+    <div className={`fixed inset-0 z-[9999] flex items-center justify-center ${isOpen ? 'visible' : 'invisible'}`}>
       {/* Overlay */}
       <div
         className={`absolute inset-0 bg-black transition-opacity duration-300 ease-out ${isOpen ? 'visible opacity-50' : 'invisible opacity-0'}`}
@@ -63,7 +70,7 @@ const PrDetailModal = () => {
 
       {/* Modal Content */}
       <div
-        className={`relative z-[999] h-[100dvh] w-full max-w-[100vw] transform rounded-lg bg-white p-6 shadow-lg transition-all duration-500 md:h-[565px] md:max-w-[90vw] lg:max-w-[75vw] ${isOpen ? 'opacity-100' : 'opacity-0'} ${isOpen ? 'translate-y-[10dvh] md:translate-y-0' : 'translate-y-[100vh]'}`}>
+        className={`relative z-[9999] h-[100dvh] w-full max-w-[100vw] transform rounded-lg bg-white p-6 shadow-lg transition-all duration-500 md:h-[565px] md:max-w-[90vw] lg:max-w-[75vw] ${isOpen ? 'opacity-100' : 'opacity-0'} ${isOpen ? 'translate-y-[10dvh] md:translate-y-0' : 'translate-y-[100vh]'}`}>
         <ModalHeading
           title="Мəhsul haqqında"
           handleClose={handleClose}

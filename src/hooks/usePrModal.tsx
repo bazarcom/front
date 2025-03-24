@@ -1,4 +1,4 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { Product } from '@/types/product';
@@ -33,10 +33,7 @@ const usePrModal = () => {
     }
   }, [productId]);
 
-  const [isOpen, setOpen] = useState(product !== undefined);
-
-  const router = useRouter();
-  const pathname = usePathname();
+  const [isOpen, setOpen] = useState(false);
 
   useEffect(() => {
     if (productId !== null) {
@@ -48,17 +45,17 @@ const usePrModal = () => {
     }
   }, [productId]);
 
-  useEffect(() => {
-    if (!isOpen) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.delete('product');
-      params.delete('sortMarkets');
-
-      router.replace(pathname + '?' + params.toString(), { scroll: false });
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-    }
-  }, [isOpen]);
+  // useEffect(() => {
+  //   if (!isOpen) {
+  //     const params = new URLSearchParams(searchParams.toString());
+  //     params.delete('product');
+  //     params.delete('sortMarkets');
+  //
+  //     router.replace(pathname + '?' + params.toString(), { scroll: false });
+  //     document.documentElement.style.overflow = 'hidden';
+  //     document.body.style.overflow = 'hidden';
+  //   }
+  // }, [isOpen]);
 
   return { product, loading, handleEmpty, error, isOpen, setOpen, handleInc, handleDec, quantity, handleAddProductToBasket, productId };
 };
