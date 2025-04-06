@@ -37,12 +37,15 @@ const useBasket = (): UseBasket => {
   };
 
   const handleAddProduct = (newProduct: Basket) => {
+    console.log('Adding product', newProduct);
     let isInBasket = false;
 
     const updatedProducts = allBasketProducts.map((product: Basket) => {
-      if (product["_id"] === newProduct["_id"] && product.offer["_id"] === newProduct.offer["_id"]) {
+      console.log('New product', newProduct);
+      console.log('Existing product', product);
+      if (product["_id"] === newProduct["_id"] && product.offer.store_name === newProduct.offer.store_name) {
         isInBasket = true;
-        return { ...product, quantity: product.quantity + 1 };
+        return { ...product, quantity: product.quantity + newProduct.quantity };
       }
       return product;
     });

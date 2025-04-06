@@ -9,7 +9,7 @@ const ProductsLoadingState: React.FC<ProductsLoadingStateProps> = ({ loading, er
   if (loading) {
     return (
       <>
-        {Array(6)
+        {Array(21)
           .fill(0)
           .map((_, index) => (
             <div

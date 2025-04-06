@@ -75,7 +75,7 @@ const PCardTitle = () => {
 
   return (
     <div className="mb-5 text-sm font-semibold text-[#1E285F] hover:underline md:text-base">
-      {product.name} <span className="text-sm font-medium text-[#9198A2] md:text-base"> / eded</span>
+      {product.name}
     </div>
   );
 };

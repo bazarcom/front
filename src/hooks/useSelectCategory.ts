@@ -8,6 +8,9 @@ const useSelectCategory = () => {
     // Создаем объект URLSearchParams из текущих параметров URL
     const params = new URLSearchParams(searchParams?.toString());
 
+    params.set('page', '1');
+    params.set('name', '');
+
     // Получаем текущее значение параметра для выбранной группы
     const currentCategory = params.get(categoryGroup);
 

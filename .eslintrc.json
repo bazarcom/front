@@ -117,14 +117,6 @@
     "comma-dangle": ["error", "always-multiline"],
     // Enforce using triple equals (`===`) over double equals (`==`)
     "eqeqeq": ["error", "always"],
-    // Disallow use of magic numbers (numbers in code without explanation)
-    "no-magic-numbers": [
-      "warn",
-      {
-        "ignore": [0, 1, -1]
-        // Allow common use cases like 0 and 1
-      }
-    ],
     // Enforce consistent indentation
     "indent": ["error", 2],
     // Two spaces per indentation level

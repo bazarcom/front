@@ -73,7 +73,7 @@ const PCardTitle = () => {
 
   return (
     <div className="line-clamp-1 max-w-[400px] text-sm font-semibold text-[#1E285F] hover:underline md:line-clamp-3 md:text-2xl">
-      {product.name} <span className="text-sm font-medium text-[#9198A2] md:text-2xl"> / eded</span>
+      {product.name}
     </div>
   );
 };

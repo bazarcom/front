@@ -27,6 +27,8 @@ export type MiniPCardProps = {
 };
 
 const MiniPCard: FC<MiniPCardProps> = ({ badge, marketLabel, product, offerId, quantity, marketName, handleAddProduct, marketImage, name, price, id }) => {
+  console.log(id, offerId, 'id and offerId');
+
   return (
     <div
       className={cn({
@@ -129,7 +131,7 @@ const CardBag = ({
   handleAddProduct: (product: Basket) => void;
 }) => {
   const productDto: Basket = {
-    _id: offerId,
+    _id: product._id,
     quantity: quantity,
     name: product.name,
     image: product.image,

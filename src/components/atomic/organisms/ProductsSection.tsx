@@ -1,6 +1,7 @@
 'use client';
 
 import { categories } from '@constants/categories';
+import { useFetchProducts } from "@hooks/useFetchProducts";
 import { useQueryString } from '@hooks/useQueryString';
 import { cn } from '@lib/utils';
 import { CategoryItemMobile } from '@molecules/CategoryItemMobile';
@@ -9,15 +10,13 @@ import { ProductsLoadingState } from '@molecules/ProductsLoadingState';
 import { Pagination } from '@nextui-org/pagination';
 import { CategoryFilter } from '@organisms/CategoryFilter';
 import { FilterSection } from '@organisms/FilterSection';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useState } from 'react';
-
-import { Product } from '@/types/product';
+import { usePathname, useRouter } from 'next/navigation';
+import { Suspense } from 'react';
 
 type ProductsSectionProps = {
   pView: string | string[] | undefined;
   page: string | string[] | undefined;
-  category: string | string[] | undefined;
+  category: string | undefined;
 };
 
 const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
@@ -25,69 +24,11 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
   const { createQueryString } = useQueryString();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const searchQuery = searchParams.get('name');
-  const sortQuery = searchParams.get('sort');
-  const [products, setProducts] = useState<Product[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [totalPages, setTotalPages] = useState<number>(0);
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-
-    const fetchProducts = async () => {
-      try {
-        setProducts([]);
-        setTotalPages(0);
-        setLoading(true);
-
-        const url = new URL('https://backend-y21i.onrender.com/api/v1/products');
-        const params = new URLSearchParams();
-        params.append('page', page as string);
-        params.append('limit', '21');
-        // eslint-disable-next-line no-unused-expressions,@typescript-eslint/no-unused-expressions
-        category ? params.append('category', category as string) : null;
-        // eslint-disable-next-line no-unused-expressions,@typescript-eslint/no-unused-expressions
-        sortQuery ? params.append('sort', sortQuery as string) : null;
-        // eslint-disable-next-line no-unused-expressions,@typescript-eslint/no-unused-expressions
-        searchQuery ? params.append('name', searchQuery as string) : null;
-
-        url.search = params.toString();
-
-        const response = await fetch(url.toString(), { signal });
-
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-        const data = await response.json();
-
-        // Не обновляем состояние если запрос был отменен
-        if (!signal.aborted) {
-          setTotalPages(data.totalPages);
-          setProducts(data.products);
-          setError(null);
-        }
-      } catch (error) {
-        console.error('Fetch error:', error);
-        setProducts([]);
-        if (!signal.aborted) {
-          setError('Error fetching data. Please try again later.');
-        }
-      } finally {
-        if (!signal.aborted) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchProducts();
-
-    // Функция очистки для отмены запроса при размонтировании или новом запросе
-    return () => {
-      abortController.abort();
-    };
-  }, [page, category, sortQuery, searchQuery]);
+  const { products, error, loading, totalPages } = useFetchProducts({
+    page: page ? +page : 1,
+    category: category,
+  });
 
   const onChange = (page: number) => {
     const searchParams = createQueryString('page', String(page));
@@ -133,6 +74,48 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
                   />
                 );
               })}
+            {!loading && products && products.length === 0 && (
+              <div className="col-span-full bg-white rounded-xl flex flex-col items-center justify-center space-y-6 py-12">
+                <svg
+                  className="h-32 w-32 text-gray-300/80"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <div className="space-y-2 text-center">
+                  <h3 className="text-2xl font-bold tracking-tight text-gray-900">Məhsul tapılmadı</h3>
+                  <p className="mx-auto max-w-md text-gray-500">Axtarışınıza uyğun heç bir məhsul tapılmadı. Zəhmət olmasa, filtr parametrlərini dəyişdirin və ya başqa kateqoriya seçin.</p>
+                </div>
+                <button
+                  onClick={() => {
+                    const params = new URLSearchParams();
+                    params.set('page', '1');
+                    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+                  }}
+                  className="mt-4 flex items-center gap-2 rounded-lg bg-[#F79219] px-6 py-3 font-medium text-white transition-colors duration-200 hover:bg-[#E68317]">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                  Filtrləri sıfırla
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -150,7 +133,6 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         {totalPages > 1 && (
           <Pagination
             siblings={0}
-            loop
             page={Number(page) || 1}
             total={totalPages}
             onChange={onChange}

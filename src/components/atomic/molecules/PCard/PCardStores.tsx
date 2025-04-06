@@ -63,7 +63,9 @@ const PCardStores = ({ id, allMarkets }: { id: string; allMarkets: Price[] }) =>
           );
         })}
       </div>
-      <div className="text-[10px] font-normal text-[#11654C] underline md:text-xs">{storesLength === 1 ? '1' : `+ daha ${storesLength - 1}`} təklif var</div>
+      <div className="text-[10px] font-normal text-[#11654C] underline md:text-xs">
+        Digər təkliflər
+      </div>
     </div>
   );
 };

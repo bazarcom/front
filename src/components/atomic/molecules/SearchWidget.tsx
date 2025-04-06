@@ -14,7 +14,7 @@ const SearchWidget: FC<SearchWidgetProps> = ({ formContent, className }) => {
   // is even better, cuz we will not use the useEffect hook) for handling
   // the search form submission.
 
-  return <SearchForm  className={className}>{formContent}</SearchForm>;
+  return <SearchForm className={className}>{formContent}</SearchForm>;
 };
 
 export { SearchWidget };
