@@ -86,7 +86,7 @@ const ProductsFormInner = () => {
   }, [debauncedSearchValue, router]);
 
   return (
-    <div className="relative" ref={wrapperRef}>
+    <div className="relative z-[99999999999]" ref={wrapperRef}>
       <TextField
         aria-label="search"
         className="flex items-center gap-2.5"
@@ -117,7 +117,7 @@ const ProductsFormInner = () => {
       </TextField>
 
       {showSuggestions && (
-        <div className="absolute top-[60px] z-10 w-full bg-white shadow-lg rounded-md max-h-60 overflow-y-auto">
+        <div className="absolute top-[60px] z-[99999999999] w-full bg-white shadow-lg rounded-md max-h-60 overflow-y-auto">
           {loading ? (
             <div className="p-2 text-gray-500">Yüklənir...</div>
           ) : suggestions.length > 0 ? (

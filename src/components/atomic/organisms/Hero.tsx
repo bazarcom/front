@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <div className="md:container">
       <section className="relative h-[232px] w-full bg-hero px-[30px] sm:h-[285px] sm:p-0 md:mt-[50px] md:rounded-md">
-        <div className="relative z-10 flex h-full flex-col justify-center">
+        <div className="relative z-50 flex h-full flex-col justify-center">
           <h1 className={`${dmSans.className} text-center text-2xl font-semibold md:text-4xl`}>
             Market qiymətlərini müqayisə et, <br/> Ən sərfəli təklifləri tap!
           </h1>
