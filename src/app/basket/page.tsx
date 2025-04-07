@@ -9,7 +9,7 @@ const BasketPage = () => {
       <div className="container">
         <div className="relative flex flex-col">
           <GoBack className="hidden w-fit items-center gap-3 md:flex" />
-          <h1 className="mt-6 text-2xl font-semibold">Səbətim</h1>
+          <h1 className="mt-6 text-2xl font-semibold">Bazarlıq Siyahısı</h1>
           <DynamicBasket />
         </div>
       </div>

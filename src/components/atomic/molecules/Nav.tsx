@@ -15,7 +15,7 @@ const Nav = () => {
         href="/basket">
         {allBasketProducts.length > 0 && <span className="absolute left-[-10px] top-[-2px] rounded-full bg-search px-[9px] py-[4px] text-xs text-white">{allBasketProducts.length}</span>}
         <SvgBag className="h-6 w-6 stroke-[rgba(62,78,80,1)]" />
-        Səbətim
+        Bazarlıq Siyahısı
       </Link>
       <Link
         className="text-lg font-semibold text-[rgba(62,78,80,1)]"

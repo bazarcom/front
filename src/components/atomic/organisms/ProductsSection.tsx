@@ -1,7 +1,7 @@
 'use client';
 
 import { categories } from '@constants/categories';
-import { useFetchProducts } from "@hooks/useFetchProducts";
+import { useFetchProducts } from '@hooks/useFetchProducts';
 import { useQueryString } from '@hooks/useQueryString';
 import { cn } from '@lib/utils';
 import { CategoryItemMobile } from '@molecules/CategoryItemMobile';
@@ -33,10 +33,15 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
   const onChange = (page: number) => {
     const searchParams = createQueryString('page', String(page));
     router.push(pathname + '?' + searchParams, { scroll: false });
+    // Scroll to the top of the products section
+    const productsSection = document.querySelector('.products-section');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <section className="flex flex-col gap-9 md:gap-[70px]">
+    <section className="products-section flex flex-col gap-9 md:gap-[70px]">
       <div className="mt-9 flex flex-col md:mt-[124px] md:flex-row md:gap-[36px]">
         <div className="flex items-center gap-2.5 overflow-scroll scrollbar-hide md:hidden md:min-w-[375px]">
           {categories.map((category) => (
@@ -75,7 +80,7 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
                 );
               })}
             {!loading && products && products.length === 0 && (
-              <div className="col-span-full bg-white rounded-xl flex flex-col items-center justify-center space-y-6 py-12">
+              <div className="col-span-full flex flex-col items-center justify-center space-y-6 rounded-xl bg-white py-12">
                 <svg
                   className="h-32 w-32 text-gray-300/80"
                   fill="none"

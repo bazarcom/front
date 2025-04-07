@@ -145,15 +145,16 @@ const CardBag = ({
     },
   };
 
-  console.log(productDto);
-
   return (
     <Button
       onPress={() => {
         handleAddProduct(productDto);
       }}
-      className="h-9 w-9 rounded border border-[#199771] bg-[#EFFFFA] p-1.5 focus:outline-none md:h-7 md:w-7">
+      className="group relative h-9 w-9 cursor-pointer rounded border border-[#199771] bg-[#EFFFFA] p-1.5 focus:outline-none md:h-7 md:w-7">
       <SvgBag className="h-full w-full stroke-[#199771]" />
+      <span className="invisible absolute -left-32 top-1/2 z-[9999] -translate-y-1/2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+        Bazarlıq siyahısı
+      </span>
     </Button>
   );
 };

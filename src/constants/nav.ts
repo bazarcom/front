@@ -4,7 +4,7 @@ export const navs = [
     path: '/',
   },
   {
-    title: 'Səbətim',
+    title: 'Bazarlıq Siyahısı',
     path: '/basket',
   },
   {
