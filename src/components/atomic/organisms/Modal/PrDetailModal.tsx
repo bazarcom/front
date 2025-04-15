@@ -2,15 +2,15 @@
 
 import { MiniSort } from '@atoms/Filter/MiniSort';
 import { QuantitySelector } from '@atoms/QuantitySelector/QuantitySelector';
-import { markets } from "@constants/markets";
+import { markets } from '@constants/markets';
 import { MiniPCard } from '@molecules/PCard/MiniPCard';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { usePrModal } from '@/hooks/usePrModal';
-import { Basket } from "@/types/basket";
-import { Price } from "@/types/price";
-import { Product } from "@/types/product";
+import { Basket } from '@/types/basket';
+import { Price } from '@/types/price';
+import { Product } from '@/types/product';
 
 import { ModalHeading } from './ModalHeading';
 
@@ -78,7 +78,7 @@ const PrDetailModal = () => {
         {loading && <div className="text-lg font-semibold">Loading...</div>}
         {error && <div className="text-lg font-semibold text-red-500">{error}</div>}
         {product && (
-          <div className="mt-4 grid grid-cols-1 grid-rows-[150px_1fr] gap-5 md:grid-cols-[300px_1fr] md:grid-rows-1">
+          <div className="mt-4 grid grid-cols-1 grid-rows-[200px_1fr] gap-5 md:grid-cols-[300px_1fr] md:grid-rows-1">
             {product && (
               <MainProduct
                 product={product}
@@ -111,7 +111,7 @@ const MainProduct = ({ product, handleInc, handleDec, value }: { product: Produc
           alt={product.name}
         />
       </div>
-      <div>
+      <div className="flex flex-col justify-between">
         <h3 className="mb-4 text-xl font-semibold text-[#1E285F]">{product.name}</h3>
         <QuantitySelector
           value={value}
@@ -123,7 +123,19 @@ const MainProduct = ({ product, handleInc, handleDec, value }: { product: Produc
   );
 };
 
-const OtherMarkets = ({ productId, product, products, handleAddProduct, quantity }: { productId: string | null; products: Price[], product: Product, quantity: number; handleAddProduct: (product: Basket) => void }) => {
+const OtherMarkets = ({
+  productId,
+  product,
+  products,
+  handleAddProduct,
+  quantity,
+}: {
+  productId: string | null;
+  products: Price[];
+  product: Product;
+  quantity: number;
+  handleAddProduct: (product: Basket) => void;
+}) => {
   // Получаем параметры URL
   const searchParams = useSearchParams();
   // Извлекаем параметр сортировки или используем 'asc' по умолчанию
@@ -139,10 +151,10 @@ const OtherMarkets = ({ productId, product, products, handleAddProduct, quantity
 
     const bestOffer = sortedOffers[0];
     // Удаляем лучший офер из списка
-    const otherOffers = sortedOffers.filter((offer) => offer["_id"] !== bestOffer["_id"]);
+    const otherOffers = sortedOffers.filter((offer) => offer['_id'] !== bestOffer['_id']);
 
     return (
-    // Остальная часть компонента без изменений
+      // Остальная часть компонента без изменений
       <div>
         <div className="relative z-10 mb-4 flex items-center justify-between">
           <h4 className="text-base font-semibold text-[#1E285F]">Digər marketlər</h4>
@@ -153,7 +165,7 @@ const OtherMarkets = ({ productId, product, products, handleAddProduct, quantity
             <MiniPCard
               product={product}
               marketLabel={bestOffer.store_name}
-              offerId={bestOffer["_id"]}
+              offerId={bestOffer['_id']}
               quantity={quantity}
               handleAddProduct={handleAddProduct}
               badge="cheapest"
@@ -161,13 +173,13 @@ const OtherMarkets = ({ productId, product, products, handleAddProduct, quantity
               marketName={bestOffer.store_name}
               marketImage={markets[bestOffer.store_name].logo}
               price={bestOffer.price}
-              id={product["_id"]}
+              id={product['_id']}
             />
             {otherOffers.map((store, index) => (
               <MiniPCard
                 product={product}
                 marketLabel={store.store_name}
-                offerId={store["_id"]}
+                offerId={store['_id']}
                 quantity={quantity}
                 handleAddProduct={handleAddProduct}
                 key={index}
@@ -175,7 +187,7 @@ const OtherMarkets = ({ productId, product, products, handleAddProduct, quantity
                 marketName={store.store_name}
                 marketImage={markets[store.store_name].logo}
                 price={store.price}
-                id={product["_id"]}
+                id={product['_id']}
               />
             ))}
           </div>
