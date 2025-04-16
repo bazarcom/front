@@ -51,7 +51,6 @@ const useContactForm = () => {
         .join(''),
     };
 
-    console.log(newFormattedData);
     try {
       await sendContactUs(data);
       toast.success('Mesajınız göndərildi! Ən qısa zamanda sizinlə əlaqə saxlanılacaq');

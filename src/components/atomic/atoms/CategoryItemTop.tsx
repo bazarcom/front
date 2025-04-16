@@ -1,4 +1,5 @@
 import { cn } from '@lib/utils';
+import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import type { HTMLAttributes, ReactNode } from 'react';
 
@@ -8,21 +9,36 @@ interface CategoryItemTopProps extends HTMLAttributes<HTMLButtonElement> {
   title?: string;
   mobileIcon?: ReactNode;
   isActive: boolean;
+  hasSubCategories?: boolean;
+  isOpen?: boolean;
 }
 
-const CategoryItemTop = ({ icon, isActive, label, title, onClick, ...props }: CategoryItemTopProps) => {
+const CategoryItemTop = ({
+  icon,
+  isActive,
+  label,
+  title,
+  onClick,
+  hasSubCategories,
+  isOpen,
+  className,
+  ...props
+}: CategoryItemTopProps) => {
   return (
     <button
       {...props}
       onClick={onClick}
-      className={cn({
-        'flex w-full items-center justify-between gap-14 p-2 md:gap-3': true,
-        'cursor-default': title,
-        'cursor-pointer': true,
-        'bg-category-selected-bg': isActive,
-      })}>
+      className={cn(
+        'flex w-full items-center justify-between gap-14 p-2 transition-colors md:gap-3',
+        {
+          'bg-category-selected-bg': isActive,
+          'hover:bg-gray-50': !isActive,
+        },
+        className,
+      )}
+    >
       <div className="flex items-center md:gap-[14px]">
-        <div className={`flex h-[30px] w-[30px] items-center justify-center rounded-md bg-category-icon p-1`}>
+        <div className="flex h-[30px] w-[30px] items-center justify-center rounded-md bg-category-icon p-1">
           <Image
             className="h-full w-full object-contain"
             src={icon}
@@ -33,6 +49,13 @@ const CategoryItemTop = ({ icon, isActive, label, title, onClick, ...props }: Ca
         </div>
         <p className="text-base font-semibold text-category-label">{title}</p>
       </div>
+
+      {hasSubCategories && (
+        <ChevronDown className={cn(
+          'h-5 w-5 transition-transform',
+          isOpen ? 'rotate-180' : 'rotate-0',
+        )} />
+      )}
     </button>
   );
 };
