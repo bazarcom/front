@@ -11,10 +11,10 @@ const AboutHero = () => {
             <div className="flex w-full max-w-[492px] flex-col gap-6">
               <AboutUsTag>Haqqımızda</AboutUsTag>
               <h1 className={`${poppins.className} text-[2rem] font-semibold`}>
-                Ən Ucuz Qiymətləri Tap, Ağıllı Alış-Veriş Et! <span className={`${pacifico.className} text-4xl font-semibold text-about-hero-important-text`}>Müqayisə Et, Qənaət Et</span>
+                Biz <span className={`${pacifico.className} text-4xl font-semibold text-about-hero-important-text`}>Kimik?</span>
               </h1>
               <p className={`${poppins.className} text-black`}>
-                Platformamız, istifadəçilərə supermarketlərdə gündəlik olaraq təzələnən qiymətləri müqayisə etməyə və ən ucuz məhsulları tapmağa kömək edir.
+                Bazarkom.az-da hesab edirik ki, ağıllı alış-veriş düzgün məlumatla başlayır. Platformamız sizə supermarket şəbəkələri üzrə qiymətləri müqayisə etmək üçün yaradılmışdır. Bizimlə siz hər zaman məhsullar üzrə ən yaxşı qiymətləri tapa bilərsiniz.
               </p>
             </div>
             <div className="flex h-[330px] w-full items-center justify-center lg:max-w-[400px]">

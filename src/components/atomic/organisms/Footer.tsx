@@ -28,8 +28,12 @@ const Footer = () => {
           })}
         </div>
         <div className="flex items-center justify-start gap-10 md:justify-center md:gap-[60px]">
-          <Facebook className="h-5 w-2.5 fill-white" />
-          <Instagram className="h-5 w-5 fill-white" />
+          <Link href="https://www.facebook.com/profile.php?id=61574127106766" target="_blank">
+            <Facebook className="h-5 w-2.5 fill-white" />
+          </Link>
+          <Link href="https://www.instagram.com/bazarkom.az_/" target="_blank">
+            <Instagram className="h-5 w-5 fill-white" />
+          </Link>
         </div>
       </div>
       <div className="pointer-events-none absolute bottom-0 right-0">
