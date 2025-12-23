@@ -134,7 +134,7 @@ const CardBag = ({
     _id: product._id,
     quantity: quantity,
     name: product.name,
-    image: product.image,
+    image: product.image_url,
     offer: {
       _id: offerId,
       logo: marketImage as string,

@@ -106,7 +106,7 @@ const MainProduct = ({ product, handleInc, handleDec, value }: { product: Produc
     <div className="grid w-full grid-cols-2 gap-4 rounded-lg border bg-white p-4 md:grid-cols-1 md:border">
       <div className="overflow-hidden rounded-lg border bg-gray-100 p-2">
         <img
-          src={product.image}
+          src={product.image_url}
           className="h-full w-full object-cover"
           alt={product.name}
         />
