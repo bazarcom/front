@@ -1,5 +1,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { logger } from '@/lib/logger';
+
 const useSelectCategory = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -26,8 +28,8 @@ const useSelectCategory = () => {
       params.set(categoryGroup, category);
     }
 
-    console.log('Setting category:', categoryGroup, '=', category);
-    console.log('Final URL params:', params.toString());
+    logger.log('Setting category:', categoryGroup, '=', category);
+    logger.log('Final URL params:', params.toString());
 
     // Перенаправляем на новый URL с обновлёнными параметрами, без скроллинга
     router.push(`?${params.toString()}`, {

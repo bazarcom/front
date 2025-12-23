@@ -115,7 +115,7 @@ export const categoryIconMap: Record<string, string> = {
   'default': '/icons/small_sale.svg',
 };
 
-export function getCategoryIcon(categoryName: string): string {
+export function getCategoryIcon(_categoryName: string): string {
   return '/icons/percentage-filled.svg';
 }
 

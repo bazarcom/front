@@ -1,9 +1,9 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+import { markets } from '@/constants/markets';
 import { Basket } from '@/types/basket';
 import { Product } from '@/types/product';
-import { markets } from '@/constants/markets';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
