@@ -4,7 +4,11 @@ import { Resend } from "resend";
 
 import { SendContactFormDto } from "@/types/SendContactFormDto";
 
-const API_KEY = "re_4g1VopvP_JFAVcyHqirJqxxiGZNtyStEv";
+const API_KEY = process.env.RESEND_API_KEY;
+
+if (!API_KEY) {
+  throw new Error('RESEND_API_KEY environment variable is not set');
+}
 
 export const sendContactUs = async (dto: SendContactFormDto) => {
   const resend = new Resend(API_KEY);

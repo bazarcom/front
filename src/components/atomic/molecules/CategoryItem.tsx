@@ -1,26 +1,18 @@
 'use client';
 
 import { CategoryItemTop } from '@atoms/CategoryItemTop';
-import { categories } from "@constants/categories";
+import { getCategoryIcon } from '@constants/categoryIcons';
 import { useSelectCategory } from '@hooks/useSelectCategory';
-import { cn } from '@lib/utils';
-import { useState } from 'react';
+import { cn, formatCategoryName } from '@lib/utils';
 
-const CategoryItem = ({ item }: { item: typeof categories[number] }) => {
+const CategoryItem = ({ categoryName }: { categoryName: string }) => {
   const { setCategory, isCategoryExists } = useSelectCategory();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const hasSubCategories = !!item.subCategories;
-  const isActive = hasSubCategories
-    ? item.subCategories.some(sub => isCategoryExists('category', sub.label))
-    : isCategoryExists('category', item.label!);
+  const isActive = isCategoryExists('category', categoryName);
+  const formattedName = formatCategoryName(categoryName);
+  const icon = getCategoryIcon(categoryName);
 
   const handleMainClick = () => {
-    if (hasSubCategories) {
-      setIsOpen(!isOpen);
-    } else if (item.label) {
-      setCategory('category', item.label);
-    }
+    setCategory('category', categoryName);
   };
 
   return (
@@ -28,37 +20,18 @@ const CategoryItem = ({ item }: { item: typeof categories[number] }) => {
       'flex flex-col rounded-sm bg-white transition-all',
       {
         'md:flex': true,
-        'bg-category-selected-bg': isActive && !hasSubCategories,
+        'bg-category-selected-bg': isActive,
       },
     )}>
       <CategoryItemTop
         onClick={handleMainClick}
-        icon={item.icon}
-        label={item.label || ''}
-        title={item.title}
+        icon={icon}
+        label={categoryName}
+        title={formattedName}
         isActive={isActive}
-        hasSubCategories={hasSubCategories}
-        isOpen={isOpen}
+        hasSubCategories={false}
+        isOpen={false}
       />
-
-      {hasSubCategories && (
-        <div className={cn(
-          'overflow-hidden transition-all duration-300',
-          isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0',
-        )}>
-          {item.subCategories.map((sub) => (
-            <CategoryItemTop
-              key={sub.label}
-              onClick={() => setCategory('category', sub.label)}
-              icon={sub.icon}
-              label={sub.label}
-              title={sub.title}
-              isActive={isCategoryExists('category', sub.label)}
-              className="pl-14"
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 };

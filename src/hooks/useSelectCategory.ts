@@ -9,7 +9,11 @@ const useSelectCategory = () => {
     const params = new URLSearchParams(searchParams?.toString());
 
     params.set('page', '1');
-    params.set('name', '');
+    
+    // Только для category параметра сбрасываем name, для market_name не трогаем
+    if (categoryGroup === 'category') {
+      params.set('name', '');
+    }
 
     // Получаем текущее значение параметра для выбранной группы
     const currentCategory = params.get(categoryGroup);
@@ -21,6 +25,9 @@ const useSelectCategory = () => {
       // Иначе устанавливаем выбранную категорию, перезаписывая существующее значение
       params.set(categoryGroup, category);
     }
+
+    console.log('Setting category:', categoryGroup, '=', category);
+    console.log('Final URL params:', params.toString());
 
     // Перенаправляем на новый URL с обновлёнными параметрами, без скроллинга
     router.push(`?${params.toString()}`, {

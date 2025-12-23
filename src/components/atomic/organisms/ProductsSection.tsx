@@ -1,6 +1,6 @@
 'use client';
 
-import { categories } from '@constants/categories';
+import { useFetchFilters } from '@hooks/useFetchFilters';
 import { useFetchProducts } from '@hooks/useFetchProducts';
 import { useQueryString } from '@hooks/useQueryString';
 import { cn } from '@lib/utils';
@@ -10,7 +10,7 @@ import { ProductsLoadingState } from '@molecules/ProductsLoadingState';
 import { Pagination } from '@nextui-org/pagination';
 import { CategoryFilter } from '@organisms/CategoryFilter';
 import { FilterSection } from '@organisms/FilterSection';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 
 type ProductsSectionProps = {
@@ -24,10 +24,17 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
   const { createQueryString } = useQueryString();
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { categories } = useFetchFilters();
+  const marketName = searchParams.get('market_name') || null;
+
+  console.log('ProductsSection - marketName from URL:', marketName);
+  console.log('ProductsSection - all searchParams:', searchParams.toString());
 
   const { products, error, loading, totalPages } = useFetchProducts({
     page: page ? +page : 1,
     category: category,
+    marketName: marketName,
   });
 
   const onChange = (page: number) => {
@@ -44,10 +51,10 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
     <section className="products-section flex flex-col gap-9 md:gap-[70px]">
       <div className="mt-9 flex flex-col md:mt-[124px] md:flex-row md:gap-[36px]">
         <div className="flex items-center gap-2.5 overflow-scroll scrollbar-hide md:hidden md:min-w-[375px]">
-          {categories.map((category) => (
+          {categories.map((categoryName) => (
             <CategoryItemMobile
-              key={category.title}
-              item={category}
+              key={categoryName}
+              categoryName={categoryName}
             />
           ))}
         </div>
@@ -123,16 +130,6 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-end gap-[5px] xs:flex-row">
-        {/*<button*/}
-        {/*  onClick={() => onChange(+Number(page) - 1)}*/}
-        {/*  disabled={+Number(page) === +MIN_PAGE}*/}
-        {/*  className={cn({*/}
-        {/*    'hidden rounded-md bg-white px-1 py-2.5 text-sm font-semibold transition-all duration-300 xs:block': true,*/}
-        {/*    'text-[#333]': +Number(page) !== MIN_PAGE,*/}
-        {/*    'text-[#ccc]': +Number(page) === MIN_PAGE,*/}
-        {/*  })}>*/}
-        {/*  Öncəki*/}
-        {/*</button>*/}
         {totalPages > 1 && (
           <Pagination
             siblings={0}
@@ -149,16 +146,6 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
             }}
           />
         )}
-        {/*<button*/}
-        {/*  onClick={() => onChange(+Number(page) + 1)}*/}
-        {/*  disabled={+Number(page) === +totalPages}*/}
-        {/*  className={cn({*/}
-        {/*    'hidden rounded-md bg-white px-1 py-2.5 text-sm font-semibold transition-all duration-300 xs:block': true,*/}
-        {/*    'text-[#333]': +Number(page) !== totalPages,*/}
-        {/*    'text-[#ccc]': +Number(page) === totalPages,*/}
-        {/*  })}>*/}
-        {/*  Növbəti*/}
-        {/*</button>*/}
       </div>
     </section>
   );

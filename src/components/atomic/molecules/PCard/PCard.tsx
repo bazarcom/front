@@ -13,13 +13,13 @@ export type PCardProps = {
 };
 
 export const CardContext = createContext<Product>({
-  _id: "someid",
+  _id: "",
   name: '',
-  image: '',
+  price: 0,
+  old_price: null,
+  image_url: '',
+  market_name: '',
   category: '',
-  createdAt: '',
-  updatedAt: '',
-  prices: [],
 });
 
 const PCard: FC<PCardProps> = ({ product, isReverse = false }) => {

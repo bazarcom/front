@@ -71,13 +71,6 @@ const ProductsFormInner = () => {
     setShowSuggestions(value.length > 0);
   };
 
-  const handleSuggestionClick = (productId: string) => {
-    setShowSuggestions(false);
-    const searchQuery = `product=${productId}`;
-    router.push(`/?${searchQuery}`, { scroll: false });
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-  };
 
   const handleSeeAllProducts = useCallback(() => {
     const searchQuery = `name=${debauncedSearchValue}`;
@@ -122,25 +115,24 @@ const ProductsFormInner = () => {
             <div className="p-2 text-gray-500">Yüklənir...</div>
           ) : suggestions.length > 0 ? (
             suggestions.map((product) => {
-              // Получаем лучшую цену (можно добавить свою логику выбора цены)
-              const bestPrice = product.prices.reduce((prev, current) => {
-                return prev.price < current.price ? prev : current;
-              });
-
               return (
                 <div
                   key={product._id}
                   className="flex items-center gap-4 p-3 hover:bg-gray-100 cursor-pointer transition-colors"
-                  onClick={() => handleSuggestionClick(product._id)}
+                  onClick={() => {
+                    setShowSuggestions(false);
+                    const searchQuery = `name=${product.name}`;
+                    router.push(`/?${searchQuery}`, { scroll: false });
+                  }}
                 >
                   {/* Изображение продукта */}
                   <div className="shrink-0">
                     <img
-                      src={product.image}
+                      src={product.image_url.startsWith('https://consumer-static-assets.wolt.com/') ? '/no-order.png' : product.image_url}
                       alt={product.name}
                       className="w-12 h-12 object-cover rounded-md border"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/placeholder-product.jpg';
+                        (e.target as HTMLImageElement).src = '/no-order.png';
                       }}
                     />
                   </div>
@@ -150,19 +142,19 @@ const ProductsFormInner = () => {
                     <div className="font-medium text-sm truncate">{product.name}</div>
 
                     {/* Цена со скидкой */}
-                    {bestPrice.discount_price ? (
+                    {product.old_price ? (
                       <div className="flex items-center gap-2">
                         <span className="text-red-600 font-semibold">
-                          {bestPrice.price} ₼
+                          {(product.price ?? 0).toFixed(2)} ₼
                         </span>
                         <span className="text-gray-400 line-through text-sm">
-                          {bestPrice.discount_price} ₼
+                          {product.old_price.toFixed(2)} ₼
                         </span>
                       </div>
                     ) : (
                       /* Обычная цена */
                       <div className="text-gray-500 text-xs font-semibold">
-                        {bestPrice.price} ₼
+                        {(product.price ?? 0).toFixed(2)} ₼
                       </div>
                     )}
                   </div>

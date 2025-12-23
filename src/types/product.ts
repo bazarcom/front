@@ -1,11 +1,9 @@
-import { Price } from "@/types/price";
-
 export type Product = {
-    "_id": string;
-    "name": string;
-    "image": string;
-    "category": string;
-    "prices": Price[],
-    "createdAt": string,
-    "updatedAt": string,
-}
+  _id: string;
+  name: string;
+  price: number | null;
+  old_price: number | null;
+  image_url: string;
+  market_name: string;
+  category: string;
+};

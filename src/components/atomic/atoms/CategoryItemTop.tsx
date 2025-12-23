@@ -4,7 +4,7 @@ import Image from 'next/image';
 import type { HTMLAttributes, ReactNode } from 'react';
 
 interface CategoryItemTopProps extends HTMLAttributes<HTMLButtonElement> {
-  icon: string;
+  icon?: string;
   label: string;
   title?: string;
   mobileIcon?: ReactNode;
@@ -38,16 +38,18 @@ const CategoryItemTop = ({
       )}
     >
       <div className="flex items-center md:gap-[14px]">
-        <div className="flex h-[30px] w-[30px] items-center justify-center rounded-md bg-category-icon p-1">
-          <Image
-            className="h-full w-full object-contain"
-            src={icon}
-            alt={label}
-            width={25}
-            height={25}
-          />
-        </div>
-        <p className="text-base font-semibold text-category-label">{title}</p>
+        {icon && (
+          <div className="flex h-[30px] w-[30px] items-center justify-center rounded-md bg-category-icon p-1">
+            <Image
+              className="h-full w-full object-contain"
+              src={icon}
+              alt={label}
+              width={25}
+              height={25}
+            />
+          </div>
+        )}
+        <p className="text-base font-semibold text-category-label">{title || label}</p>
       </div>
 
       {hasSubCategories && (
