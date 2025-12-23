@@ -4,10 +4,12 @@ import { MiniSort } from '@atoms/Filter/MiniSort';
 import { QuantitySelector } from '@atoms/QuantitySelector/QuantitySelector';
 import { markets } from '@constants/markets';
 import { MiniPCard } from '@molecules/PCard/MiniPCard';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { usePrModal } from '@/hooks/usePrModal';
+import { logger } from '@/lib/logger';
 import { Basket } from '@/types/basket';
 import { Price } from '@/types/price';
 import { Product } from '@/types/product';
@@ -19,9 +21,7 @@ const PrDetailModal = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  console.log(isOpen, 'isOpen');
-
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false);
     handleEmpty();
 
@@ -33,23 +33,23 @@ const PrDetailModal = () => {
     });
     document.documentElement.style.overflow = 'auto';
     document.body.style.overflow = 'auto';
-  };
+  }, [setOpen, handleEmpty, searchParams, router]);
 
   useEffect(() => {
     // if product field in URL is empty, close the modal
     const productId = searchParams.get('product');
     if (!productId) {
-      console.log('closing modal');
-      setOpen(() => false);
+      logger.log('closing modal');
+      setOpen(false);
       document.documentElement.style.overflow = 'auto';
       document.body.style.overflow = 'auto';
     } else {
-      console.log('opening modal');
-      setOpen(() => true);
+      logger.log('opening modal');
+      setOpen(true);
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     }
-  }, [searchParams]);
+  }, [searchParams, setOpen]);
 
   // Закрытие по нажатию на клавишу Esc
   useEffect(() => {
@@ -59,7 +59,7 @@ const PrDetailModal = () => {
 
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
-  }, []);
+  }, [handleClose]);
 
   return (
     <div className={`fixed inset-0 z-[9999] flex items-center justify-center ${isOpen ? 'visible' : 'invisible'}`}>
@@ -104,11 +104,13 @@ const PrDetailModal = () => {
 const MainProduct = ({ product, handleInc, handleDec, value }: { product: Product; value: number; handleInc: () => void; handleDec: () => void }) => {
   return (
     <div className="grid w-full grid-cols-2 gap-4 rounded-lg border bg-white p-4 md:grid-cols-1 md:border">
-      <div className="overflow-hidden rounded-lg border bg-gray-100 p-2">
-        <img
+      <div className="relative h-full min-h-[200px] overflow-hidden rounded-lg border bg-gray-100 p-2">
+        <Image
           src={product.image_url}
-          className="h-full w-full object-cover"
+          className="object-cover"
           alt={product.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 300px"
         />
       </div>
       <div className="flex flex-col justify-between">
@@ -197,4 +199,4 @@ const OtherMarkets = ({
   }
 };
 
-export default PrDetailModal;
+export { PrDetailModal };

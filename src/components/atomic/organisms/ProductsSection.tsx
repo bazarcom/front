@@ -3,6 +3,7 @@
 import { useFetchFilters } from '@hooks/useFetchFilters';
 import { useFetchProducts } from '@hooks/useFetchProducts';
 import { useQueryString } from '@hooks/useQueryString';
+import { logger } from '@lib/logger';
 import { cn } from '@lib/utils';
 import { CategoryItemMobile } from '@molecules/CategoryItemMobile';
 import { PCard } from '@molecules/PCard/PCard';
@@ -28,8 +29,8 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
   const { categories } = useFetchFilters();
   const marketName = searchParams.get('market_name') || null;
 
-  console.log('ProductsSection - marketName from URL:', marketName);
-  console.log('ProductsSection - all searchParams:', searchParams.toString());
+  logger.log('ProductsSection - marketName from URL:', marketName);
+  logger.log('ProductsSection - all searchParams:', searchParams.toString());
 
   const { products, error, loading, totalPages } = useFetchProducts({
     page: page ? +page : 1,
