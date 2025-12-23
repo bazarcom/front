@@ -99,7 +99,6 @@ export const categoryIconMap: Record<string, string> = {
   'kəşf_edin': '/icons/small_sale.svg',
   'maska_və_tekstil': '/icons/hygiene.svg',
   'maşın_üçün_aksesuarlar': '/icons/small_sale.svg',
-  'mürəbbə_və_cemlər': '/icons/honey.svg',
   'oyuncaqlar': '/icons/kid.svg',
   'qastronom': '/icons/gastronome.svg',
   'saqqiz': '/icons/snack.svg',
