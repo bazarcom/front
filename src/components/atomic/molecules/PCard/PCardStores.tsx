@@ -2,6 +2,7 @@
 
 import { markets } from '@constants/markets';
 import { MOBILE_SCREEN } from '@constants/screens';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 
@@ -53,10 +54,12 @@ const PCardStores = ({ id, allMarkets }: { id: string; allMarkets: Price[] }) =>
               }}
               className="grid max-h-6 min-h-6 min-w-6 max-w-6 place-items-center rounded bg-[#F5F5F5] shadow-[2px_2px_4px_0px_rgba(0,0,0,0.13)] md:max-h-7 md:min-h-7 md:min-w-7 md:max-w-7">
               <div className="relative h-4 w-4 overflow-hidden rounded-full md:h-5 md:w-5">
-                <img
+                <Image
                   src={markets[store.store_name].logo}
-                  className="h-full w-full object-cover object-center"
+                  className="object-cover object-center"
                   alt={store.store_name}
+                  fill
+                  sizes="(max-width: 768px) 16px, 20px"
                 />
               </div>
             </div>

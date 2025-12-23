@@ -3,6 +3,7 @@
 import { useFetchProducts } from "@hooks/useFetchProducts";
 import { SvgSearch } from '@icons/SvgSearch';
 import debounce from 'debounce';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef,useState } from 'react';
 import { Button, Input, TextField } from 'react-aria-components';
@@ -126,11 +127,13 @@ const ProductsFormInner = () => {
                   }}
                 >
                   {/* Изображение продукта */}
-                  <div className="shrink-0">
-                    <img
+                  <div className="relative shrink-0 h-12 w-12">
+                    <Image
                       src={product.image_url.startsWith('https://consumer-static-assets.wolt.com/') ? '/no-order.png' : product.image_url}
                       alt={product.name}
-                      className="w-12 h-12 object-cover rounded-md border"
+                      className="object-cover rounded-md border"
+                      fill
+                      sizes="48px"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = '/no-order.png';
                       }}

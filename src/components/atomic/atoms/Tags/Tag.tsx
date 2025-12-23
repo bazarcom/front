@@ -2,12 +2,14 @@ import { dmSans } from '@constants/fonts';
 import { markets } from "@constants/markets";
 import Image from 'next/image';
 
+import { logger } from '@/lib/logger';
+
 type TagProps = {
   marketName: string;
 };
 
 const Tag = ({ marketName }: TagProps) => {
-  console.log('TagProps', marketName);
+  logger.log('TagProps', marketName);
   const img = markets[marketName]?.logo;
   const bgColor = markets[marketName]?.bgColor;
   const textColor = markets[marketName]?.marketTextColor;

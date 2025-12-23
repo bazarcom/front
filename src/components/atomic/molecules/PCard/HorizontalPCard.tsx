@@ -2,12 +2,13 @@
 
 import { markets } from '@constants/markets';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useContext } from 'react';
 import { Button } from 'react-aria-components';
 
 import { useBasket } from '@/hooks/useBasket';
-import { SvgBag } from '@/icons/SvgBag';
 import { Manat } from '@/icons/Currency/Manat';
+import { SvgBag } from '@/icons/SvgBag';
 import { productToBasket } from '@/lib/utils';
 
 import { CardContext } from './PCard';
@@ -36,10 +37,12 @@ const HorizontalPCard = () => {
             />
           </div>
         )}
-        <img
+        <Image
           src={product.image_url.startsWith('https://consumer-static-assets.wolt.com/') ? '/no-order.png' : product.image_url}
-          className="h-full w-full object-contain"
+          className="object-contain"
           alt={product.name}
+          fill
+          sizes="148px"
         />
       </div>
       <PCardBadge />

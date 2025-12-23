@@ -1,8 +1,11 @@
 import { BasketTag } from '@atoms/Tags/BasketTag';
 import { SvgClose } from '@icons/SvgClose';
 import { BasketProductQuantityController } from '@molecules/BasketProductQuantityController';
+import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { Button } from 'react-aria-components';
+
+import { logger } from '@/lib/logger';
 
 type BasketItemProps = {
   img: string;
@@ -32,7 +35,7 @@ const BasketItem = ({
   handleDecrementProduct,
   handleRemoveProduct,
 }: BasketItemProps) => {
-  console.log("Basket Item", market);
+  logger.log("Basket Item", market);
 
   return (
     <li className="flex min-h-fit justify-between overflow-hidden rounded-lg p-5 md:border md:border-solid md:border-basket-product-border md:bg-white">
@@ -44,10 +47,12 @@ const BasketItem = ({
               isMobile={window.innerWidth <= MOBILE_WIDTH}
             />
           </div>
-          <img
+          <Image
             src={img}
             alt={name}
-            className="h-full w-full object-cover"
+            className="object-cover"
+            fill
+            sizes="(max-width: 768px) 80px, 100px"
           />
         </div>
         <div className="flex max-w-[350px] flex-col gap-1.5">

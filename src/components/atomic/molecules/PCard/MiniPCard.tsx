@@ -1,9 +1,11 @@
 import { markets } from '@constants/markets';
+import Image from 'next/image';
 import type { FC } from 'react';
 import { Button } from 'react-aria-components';
 
 import { Manat } from '@/icons/Currency/Manat';
 import { SvgBag } from '@/icons/SvgBag';
+import { logger } from '@/lib/logger';
 import { cn } from '@/lib/utils';
 import { Basket } from '@/types/basket';
 import { Product } from '@/types/product';
@@ -27,7 +29,7 @@ export type MiniPCardProps = {
 };
 
 const MiniPCard: FC<MiniPCardProps> = ({ badge, marketLabel, product, offerId, quantity, marketName, handleAddProduct, marketImage, name, price, id }) => {
-  console.log(id, offerId, 'id and offerId');
+  logger.log(id, offerId, 'id and offerId');
 
   return (
     <div
@@ -90,12 +92,16 @@ const CardTitle = ({ name }: { name: string }) => {
 };
 
 const CardImage = ({ marketImage, marketName }: { marketImage: string | undefined; marketName: string }) => {
+  if (!marketImage) return null;
+
   return (
     <div className="relative h-[47px] w-full overflow-hidden">
-      <img
+      <Image
         src={marketImage}
-        className="h-full w-full object-cover"
+        className="object-cover"
         alt={marketName}
+        fill
+        sizes="75px"
       />
     </div>
   );
