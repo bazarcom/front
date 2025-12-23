@@ -47,10 +47,12 @@ const MarketFilter = () => {
               height={20}
               className="h-5 w-5 object-contain"
             />
-            <span className={cn('text-sm font-medium', {
-              'text-[#549F83]': isActive,
-              'text-gray-700': !isActive,
-            })}>
+            <span
+              className={cn('text-sm font-medium', {
+                'text-[#549F83]': isActive,
+                'text-gray-700': !isActive,
+              })}
+            >
               {marketInfo.label}
             </span>
           </button>
