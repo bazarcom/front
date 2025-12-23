@@ -37,7 +37,7 @@ const MarketFilter = () => {
               {
                 'border-[#549F83] bg-[#549F83]/10': isActive,
                 'border-gray-300 bg-white hover:bg-gray-50': !isActive,
-              }
+              },
             )}
           >
             <Image

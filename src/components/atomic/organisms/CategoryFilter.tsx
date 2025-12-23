@@ -1,7 +1,7 @@
 'use client';
 
-import { useFetchFilters } from '@hooks/useFetchFilters';
 import { CategoryItem } from '@/components/atomic/molecules/CategoryItem';
+import { useFetchFilters } from '@hooks/useFetchFilters';
 
 const CategoryFilter = () => {
   const { categories, loading, error } = useFetchFilters();

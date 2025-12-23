@@ -79,4 +79,5 @@ const Basket = () => {
   );
 };
 
+// eslint-disable-next-line import/no-default-export
 export default Basket; // I have to default export due to dynamic import in page.tsx

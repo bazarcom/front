@@ -1,6 +1,7 @@
+import { Sort } from '@/components/atomic/atoms/Filter/Sort';
+
 // import { FilterGrid } from '@/components/atomic/atoms/Filter/FilterGrid';
 // import { FilterList } from '@/components/atomic/atoms/Filter/FilterList';
-import { Sort } from '@/components/atomic/atoms/Filter/Sort';
 import { MarketFilter } from './MarketFilter';
 
 const FilterSection = () => {
