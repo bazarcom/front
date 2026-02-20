@@ -11,7 +11,7 @@ const FilterGrid = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const isGrid = searchParams.get('pview') !== 'list';
+  const isGrid = searchParams?.get('pview') !== 'list';
 
   const { createQueryString } = useQueryString();
 

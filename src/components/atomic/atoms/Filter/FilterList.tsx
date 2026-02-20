@@ -11,7 +11,7 @@ const FilterList = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const isList = searchParams.get('pview') === 'list';
+  const isList = searchParams?.get('pview') === 'list';
 
   const { createQueryString } = useQueryString();
 

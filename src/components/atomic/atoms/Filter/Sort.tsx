@@ -16,7 +16,7 @@ const Sort = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const sortType = searchParams.get('sort') || undefined;
+  const sortType = searchParams?.get('sort') || undefined;
 
   const { createQueryString } = useQueryString();
 

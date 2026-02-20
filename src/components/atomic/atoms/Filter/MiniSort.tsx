@@ -27,7 +27,7 @@ const MiniSort = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const sortType = searchParams.get('sortMarkets') || undefined;
+  const sortType = searchParams?.get('sortMarkets') || undefined;
 
   const { createQueryString } = useQueryString();
 

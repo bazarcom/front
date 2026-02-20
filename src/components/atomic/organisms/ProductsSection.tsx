@@ -27,10 +27,10 @@ const ProductsSection = ({ pView, page, category }: ProductsSectionProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { categories } = useFetchFilters();
-  const marketName = searchParams.get('market_name') || null;
+  const marketName = searchParams?.get('market_name') || null;
 
   logger.log('ProductsSection - marketName from URL:', marketName);
-  logger.log('ProductsSection - all searchParams:', searchParams.toString());
+  logger.log('ProductsSection - all searchParams:', searchParams?.toString());
 
   const { products, error, loading, totalPages } = useFetchProducts({
     page: page ? +page : 1,

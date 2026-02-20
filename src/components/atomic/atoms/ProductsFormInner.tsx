@@ -10,7 +10,7 @@ import { Button, Input, TextField } from 'react-aria-components';
 
 const ProductsFormInner = () => {
   const searchParams = useSearchParams();
-  const initialSearchValue = searchParams.get('name') || '';
+  const initialSearchValue = searchParams?.get('name') || '';
   const [searchValue, setSearchValue] = useState('');
   const [debauncedSearchValue, setDebouncedSearchValue] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -55,7 +55,7 @@ const ProductsFormInner = () => {
 
   // Initial search param setup
   useEffect(() => {
-    const nameParam = searchParams.get('name');
+    const nameParam = searchParams?.get('name');
     if (nameParam) {
       setSearchValue(nameParam);
     }

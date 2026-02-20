@@ -9,7 +9,7 @@ import { useProductQuantity } from './useProductQuantity';
 
 const usePrModal = () => {
   const searchParams = useSearchParams();
-  const productId = searchParams.get('product');
+  const productId = searchParams?.get('product') ?? null;
   const { handleInc, handleDec, quantity, handleAddProductToBasket, handleEmpty } = useProductQuantity();
   const [product, setProduct] = useState<Product | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);

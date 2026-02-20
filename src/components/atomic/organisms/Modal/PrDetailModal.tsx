@@ -25,7 +25,7 @@ const PrDetailModal = () => {
     setOpen(false);
     handleEmpty();
 
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString() ?? '');
     params.delete('product');
 
     router.push(`/?${params.toString()}`, {
@@ -37,7 +37,7 @@ const PrDetailModal = () => {
 
   useEffect(() => {
     // if product field in URL is empty, close the modal
-    const productId = searchParams.get('product');
+    const productId = searchParams?.get('product');
     if (!productId) {
       logger.log('closing modal');
       setOpen(false);
@@ -141,7 +141,7 @@ const OtherMarkets = ({
   // Получаем параметры URL
   const searchParams = useSearchParams();
   // Извлекаем параметр сортировки или используем 'asc' по умолчанию
-  const sortMarkets = searchParams.get('sortMarkets') || 'asc';
+  const sortMarkets = searchParams?.get('sortMarkets') || 'asc';
 
   if (products && productId) {
     // Создаем копию массива для сортировки, чтобы не мутировать исходный массив

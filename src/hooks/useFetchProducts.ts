@@ -31,9 +31,9 @@ export const useFetchProducts = ({ page, category, limit = 21, searchQueryProp, 
   const [totalProducts, setTotalProducts] = useState<number>(0);
 
   const searchParams = useSearchParams();
-  const searchQuery = searchQueryProp || searchParams.get('name');
-  const sortQuery = sortQueryProp || searchParams.get('sort');
-  const marketQuery = marketName || searchParams.get('market_name');
+  const searchQuery = searchQueryProp || searchParams?.get('name');
+  const sortQuery = sortQueryProp || searchParams?.get('sort');
+  const marketQuery = marketName || searchParams?.get('market_name');
 
   useEffect(() => {
     const abortController = new AbortController();
