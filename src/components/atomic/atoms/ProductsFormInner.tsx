@@ -110,7 +110,7 @@ const ProductsFormInner = () => {
         </Button>
       </TextField>
 
-      {showSuggestions && (
+      {/* {showSuggestions && (
         <div className="absolute top-[60px] z-[99999999999] w-full bg-white shadow-lg rounded-md max-h-60 overflow-y-auto">
           {loading ? (
             <div className="p-2 text-gray-500">Yüklənir...</div>
@@ -126,7 +126,6 @@ const ProductsFormInner = () => {
                     router.push(`/?${searchQuery}`, { scroll: false });
                   }}
                 >
-                  {/* Изображение продукта */}
                   <div className="relative shrink-0 h-12 w-12">
                     <Image
                       src={product.image_url.startsWith('https://consumer-static-assets.wolt.com/') ? '/no-order.png' : product.image_url}
@@ -140,11 +139,9 @@ const ProductsFormInner = () => {
                     />
                   </div>
 
-                  {/* Название и цена */}
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-sm truncate">{product.name}</div>
 
-                    {/* Цена со скидкой */}
                     {product.old_price ? (
                       <div className="flex items-center gap-2">
                         <span className="text-red-600 font-semibold">
@@ -155,7 +152,6 @@ const ProductsFormInner = () => {
                         </span>
                       </div>
                     ) : (
-                      /* Обычная цена */
                       <div className="text-gray-500 text-xs font-semibold">
                         {(product.price ?? 0).toFixed(2)} ₼
                       </div>
@@ -176,7 +172,7 @@ const ProductsFormInner = () => {
             </button>
           )}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
