@@ -1,57 +1,25 @@
 'use client';
 
-import { useFetchProducts } from "@hooks/useFetchProducts";
 import { SvgSearch } from '@icons/SvgSearch';
-import debounce from 'debounce';
-import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useRef,useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button, Input, TextField } from 'react-aria-components';
 
 const ProductsFormInner = () => {
   const searchParams = useSearchParams();
   const initialSearchValue = searchParams?.get('name') || '';
   const [searchValue, setSearchValue] = useState('');
-  const [debauncedSearchValue, setDebouncedSearchValue] = useState('');
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
     if (initialSearchValue) {
       setSearchValue(initialSearchValue);
-      setDebouncedSearchValue(initialSearchValue);
     }
   }, [initialSearchValue]);
 
-  const { products: suggestions, loading } = useFetchProducts({
-    page: 1,
-    searchQueryProp: debauncedSearchValue,
-    limit: 15,
-  });
-
-  const debouncedSearch = useRef(
-    debounce((value: string) => {
-      setDebouncedSearchValue(value);
-    }, 750),
-  ).current;
-
   const handleSearchValueChange = (value: string) => {
     setSearchValue(value);
-    debouncedSearch(value);
   };
-
-  // Click outside handler
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setShowSuggestions(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   // Initial search param setup
   useEffect(() => {
@@ -63,24 +31,15 @@ const ProductsFormInner = () => {
 
   const handleSearch = useCallback(() => {
     const searchQuery = `name=${searchValue}`;
-    setShowSuggestions(false);
     router.push(`/?${searchQuery}`, { scroll: false });
   }, [searchValue, router]);
 
   const handleInputChange = (value: string) => {
     handleSearchValueChange(value);
-    setShowSuggestions(value.length > 0);
   };
 
-
-  const handleSeeAllProducts = useCallback(() => {
-    const searchQuery = `name=${debauncedSearchValue}`;
-    setShowSuggestions(false);
-    router.push(`/?${searchQuery}`, { scroll: false });
-  }, [debauncedSearchValue, router]);
-
   return (
-    <div className="relative z-[99999999999]" ref={wrapperRef}>
+    <div className="relative z-[99999999999]">
       <TextField
         aria-label="search"
         className="flex items-center gap-2.5"
@@ -90,7 +49,6 @@ const ProductsFormInner = () => {
           className="h-[50px] w-full rounded-md bg-white px-4 shadow-heroInput sm:w-[374px]"
           value={searchValue}
           onChange={(e) => handleInputChange(e.target.value)}
-          onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               e.preventDefault();
